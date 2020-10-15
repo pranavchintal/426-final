@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Container from 'react-bootstrap/Container';
 import * as Tone from 'tone';
 
 
@@ -60,9 +59,27 @@ function App() {
     
   }
        return(
-           <div>
-             <input type="text" id="one" onKeyPress={handleKeyPress} />
-          </div>
+        <html>
+          <head>
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+          />
+          </head>
+          <body>
+            <div class="first_page">
+              <h1>
+                Soundbites
+              </h1>
+            </div>
+
+            <div>
+              <input type="text" id="one" onKeyPress={handleKeyPress} />
+            </div>
+          </body>
+        </html>
        );
 }
 

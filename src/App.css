@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.first_page {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background-color: purple;
+}
