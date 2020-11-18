@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  background-color: purple;
+}
+
+.container {
+  border: thick solid black;
+  width: 300px;
+  background-color: aliceblue;
 }
 
 .App-logo {
