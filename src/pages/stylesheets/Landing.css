@@ -1,0 +1,185 @@
+.landing-header-all {
+    position: relative;
+    height: calc(100vh - 100px);
+    width: 100%;
+    background-image: url('../icons/landing_background.svg');
+    background-size: cover;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 0px 0px 40px 40px;
+}
+
+.landing-header-left {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 490px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin-right: 120px;
+}
+
+.lh-left-elts {
+    text-align: right;
+    position: absolute;
+    right: 0px;
+}
+
+.title-text {
+    font-size: 96px;
+    line-height: 96px;
+    font-weight: 700;
+}
+
+.flavor-text {
+    font-size: 22px;
+    font-family: futura-pt, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    margin-top: 10px;
+}
+
+.landing-buttons a {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 20px;
+    padding: 15px 22px;
+    border-radius: 25px;
+    margin-top: 24px;
+    margin-left: 14px;
+    font-weight: 700;
+}
+
+.landing-buttons button {
+    display: inline-block;
+    border: none;
+    text-decoration: none;
+    line-height: 20px;
+    padding: 15px 22px;
+    border-radius: 25px;
+    margin-top: 24px;
+    margin-left: 14px;
+    font-family: futura-pt, sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+
+.create-soundbite-button {
+    background: #5A189A;
+    color: white;
+}
+
+.create-soundbite-button:hover {
+    background: #50158A;
+    color: white;
+}
+
+.create-soundbite-button:active {
+    transform: scale(0.99);
+}
+
+.signup-button {
+    background: #ffffff;
+    color: #440D77;
+}
+
+.signup-button:hover {
+    background: #E6E6E6;
+    color: #440D77;
+    cursor: pointer;
+}
+
+.signup-button:focus {
+    outline: none;
+}
+
+.signup-button:active {
+    transform: scale(0.99);
+}
+
+.landing-header-right {
+    height: 100%;
+    width: 400px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.synth-icons {
+   width: 100%;
+}
+
+.landing-bottom {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: white;
+}
+
+.svg-arrow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.bottom-text-container {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    padding-right: 40px;
+    display: flex;
+    flex-flow: row nowrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.bottom-text {
+    font-size: 20px;
+    text-align: right;
+    font-weight: 700;
+    color: #5A189A;
+    line-height: 25px;
+}
+
+.bottom-text:hover {
+    color: #5A189A;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 100% {transform: translateY(0);} 
+    40% {transform: translateY(-20px);} 
+    80% {transform: translateY(-12px);} 
+ } 
+
+.svg-bounce {
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: 4;
+}
+
+.arrow {
+    width: 24px;
+    height: 37px;
+}
+
+.clickarea {
+    cursor: pointer;
+}
