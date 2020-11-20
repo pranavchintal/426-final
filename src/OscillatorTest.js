@@ -1,25 +1,21 @@
 import React from 'react';
 import * as Tone from 'tone';
 import { NoiseSynth, StateTimeline } from 'tone';
+import classNames from "classnames";
 
-// export function OscillatorTest() {
-
-//     const synth = new Tone.Synth().toDestination();
-//     synth.oscillator.type = "sine32";
-
-//     return (<div>this works</div>);
-// }
 
 export class OscillatorTest extends React.Component {
 
     constructor(props) {
         super(props);
 
+        console.log(this.props.synth.get().volume);
+
         this.state = {
-            displayCents: OscillatorTest.defaultCents,
-            level: OscillatorTest.defaultLevel,
-            keyPressed: false,
-            mute: false
+            displayCents: this.props.synth.get().detune,
+            level: this.props.synth.get().volume,
+            mute: false,
+            classes: classNames('container')
         };
 
         this.changeOsc = this.changeOsc.bind(this);
@@ -70,17 +66,20 @@ export class OscillatorTest extends React.Component {
     muteOsc() {
         if(!this.state.mute) {
             this.setState({mute: true});
-            this.props.synth.set({volume: -200})
+            this.props.synth.set({volume: -200});
+            this.setState({classes: classNames("container", "not-active")});
         } else {
             this.setState({mute: false});
             this.props.synth.set({volume: this.state.level});
+            this.setState({classes: classNames("container")});
         }
     }
 
     render() {
 
 
-        return (<div className='container'>
+        return (<div className={this.state.classes}>
+            <h1>Osc</h1>
             <div>
                 <button onClick={this.changeOsc}>Square</button>
                 <button onClick={this.changeOsc}>Triangle</button>
@@ -103,4 +102,4 @@ export class OscillatorTest extends React.Component {
 
 
 OscillatorTest.defaultCents = 0;
-OscillatorTest.defaultLevel = 0;
+OscillatorTest.defaultLevel = -15;

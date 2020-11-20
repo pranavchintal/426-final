@@ -9,9 +9,8 @@ export class Dist extends React.Component {
         super(props);
 
         this.state = {
-            distortion: 0,
-            oversample: 0,
-            wet: 0
+            distortion: this.props.dist.distortion * 100,
+            wet: this.props.dist.wet.value * 100
         };
 
         this.adjust = this.adjust.bind(this);
@@ -21,7 +20,6 @@ export class Dist extends React.Component {
     adjust(event) {
         switch(event.target.name) {
             case "distortion":
-                //console.log(event.target.value);
                 this.props.dist.set({distortion: event.target.value / 100});
                 this.setState({distortion: event.target.value});
                 break;
@@ -41,6 +39,7 @@ export class Dist extends React.Component {
 
         return (<div className='container'>
             <div>
+                <h1>Distortion</h1>
                 <h1>Distortion</h1>
                 <input name="distortion" type='range' min='0' max='100' step='1' value={this.state.distortion} onChange={this.adjust}></input>
                 <p>{this.state.distortion} ms</p>

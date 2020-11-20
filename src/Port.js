@@ -5,13 +5,12 @@ import { NoiseSynth, StateTimeline } from 'tone';
 
 export class Port extends React.Component {
 
+    
     constructor(props) {
         super(props);
-
         this.state = {
-            portTime: 0
+            portTime: this.props.synth[0].get().portamento
         };
-
         this.adjust = this.adjust.bind(this);
     }
 

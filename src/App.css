@@ -3,6 +3,10 @@
   background-color: purple;
 }
 
+.not-active {
+  opacity: 50%;
+}
+
 .container {
   border: thick solid black;
   width: 300px;

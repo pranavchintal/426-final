@@ -8,10 +8,11 @@ export class Chorus extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
-            frequency: 0, 
-            delayTime: 0,
-            depth: 0,
+            frequency: this.props.chorus.freqency, 
+            delayTime: this.props.chorus.delayTime,
+            depth: this.props.chorus.depth * 100,
         };
 
         this.adjust = this.adjust.bind(this);
@@ -40,6 +41,7 @@ export class Chorus extends React.Component {
 
         return (<div className='container'>
             <div>
+                <h1>Chorus</h1>
                 <h1>Frequency</h1>
                 <input name="frequency" type='range' min='0' max='20000' step='1' value={this.state.frequency} onChange={this.adjust}></input>
                 <p>{this.state.freqency} ms</p>

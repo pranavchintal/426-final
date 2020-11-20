@@ -6,12 +6,15 @@ export class AmpEnv extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.synth[0].get());
+
         this.state = {
-            attack: 0,
-            decay: 0,
-            sustain: 0,
-            release: 0
+            attack: (this.props.synth[0].get().envelope.attack * 1000),
+            decay: (this.props.synth[0].get().envelope.decay * 1000),
+            sustain: (this.props.synth[0].get().envelope.sustain * 1000),
+            release: (this.props.synth[0].get().envelope.release * 1000)
         }
+
 
         this.adjust = this.adjust.bind(this);
     }
@@ -58,6 +61,7 @@ export class AmpEnv extends React.Component {
     render() {
         return (
         <div className='container'>
+            <h1>Amp Env</h1>
             <h1>Attack</h1>
             <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input>
             <p>{this.state.attack} ms</p>

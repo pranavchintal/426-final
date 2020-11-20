@@ -8,11 +8,12 @@ export class Delay extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
-            delayTime: 0,
-            feedback: 0,
-            maxDelay: 0,
-            wet: 0
+            delayTime: this.props.delay.delayTime.value * 1000,
+            feedback: this.props.delay.feedback.value * 100,
+            // maxDelay: this.props.delay.maxDelay,
+            wet: this.props.delay.wet.value * 100
         };
 
         this.adjust = this.adjust.bind(this);
@@ -29,10 +30,11 @@ export class Delay extends React.Component {
                 this.props.delay.set({feedback: event.target.value / 100});
                 this.setState({feedback: event.target.value});
                 break;
-            case "maxDelay":
-                this.props.delay.set({maxDelay: event.target.value / 1000});
-                this.setState({maxDelay: event.target.value});
-                break;
+            // case "maxDelay":
+            //     this.props.delay.set({maxDelay: event.target.value / 1000});
+            //     this.setState({maxDelay: event.target.value});
+            //     console.log(this.state.maxDelay);
+            //     break;
             case "wet":
                 this.props.delay.set({wet: event.target.value / 100});
                 this.setState({wet: event.target.value});                
@@ -44,17 +46,18 @@ export class Delay extends React.Component {
 
         return (<div className='container'>
             <div>
+                <h1>Delay</h1>
                 <h1>Delay Time</h1>
                 <input name="delayTime" type='range' min='0' max='1000' step='1' value={this.state.delayTime} onChange={this.adjust}></input>
                 <p>{this.state.delayTime} ms</p>
                 <h1>Feedback</h1>
                 <input name="feedback" type='range' min='0' max='100' step='1' value={this.state.feedback} onChange={this.adjust}></input>
-                <p>{this.state.feedback} %</p>
-                <h1>Maximum Delay</h1>
+                <p>{this.state.feedback}</p>
+                {/* <h1>Maximum Delay</h1>
                 <input name="maxDelay" type='range' min='0' max='3000' step='1' value={this.state.maxDelay} onChange={this.adjust}></input>
-                <p>{this.state.maxDelay} % wet</p>                
+                <p>{this.state.maxDelay} ms</p>                 */}
                 <h1>Wet/Dry</h1>
-                <input name="wet" type='range' min='0' max='100' step='1' value={this.state.level} onChange={this.adjust}></input>
+                <input name="wet" type='range' min='0' max='100' step='1' value={this.state.wet} onChange={this.adjust}></input>
                 <p>{this.state.wet} % wet</p>
             </div>
         </div>);

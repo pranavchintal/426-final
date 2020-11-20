@@ -71,6 +71,7 @@ export class FilterEnv extends React.Component {
     render() {
         return (
         <div className='container'>
+            <h1>Filter Env</h1>
             <h1>Cutoff</h1>
             <input onChange={this.adjust} name='cutoff' type='range' min='0' max='20000' step='1' value={this.state.cutoff}></input>
             <h1>Attack</h1>

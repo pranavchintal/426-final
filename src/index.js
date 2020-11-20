@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as Tone from 'tone';
 
-console.log(this);
 
 // const testSynth = new Tone.MonoSynth().toDestination();
 // //testSynth.triggerAttackRelease("C4", "8n");
