@@ -17,6 +17,4 @@ function App() {
       <SynthBuilder />
     </div>
   );
-}
-
-export default App;
+}  
