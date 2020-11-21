@@ -4,17 +4,13 @@ export class Port extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
-            portTime: 0
+            portTime: this.props.synth[0].get().portamento
         };
-
         this.adjust = this.adjust.bind(this);
     }
 
-
     adjust(event) {
-
         this.props.synth.forEach(elm => {
             elm.set({portamento: event.target.value / 1000});
         });
@@ -22,7 +18,6 @@ export class Port extends React.Component {
     }
 
     render() {
-
 
         return (<div className='container'>
             <div>

@@ -13,6 +13,9 @@ export class BigBoyOptions {
         this.voice2 = synth.voice2 === undefined ? Tone.MonoSynth.getDefaults() : synth.voice2.get();
         this.voice3 = synth.voice3 === undefined ? Tone.MonoSynth.getDefaults() : synth.voice3.get();
 
+        this.voice1.volume = -10;
+        this.voice2.volume = -10;
+        this.voice3.volume = -10;
     }
 
 }
