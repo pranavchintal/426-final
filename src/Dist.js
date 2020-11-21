@@ -9,28 +9,43 @@ export class Dist extends React.Component {
         super(props);
 
         this.state = {
-            distortion: this.props.dist.distortion * 100,
-            wet: this.props.dist.wet.value * 100
+            distortion: this.props.synth.dist.distortion * 100,
+            wet: this.props.synth.dist.wet.value * 100,
+            isOn: this.props.synth.chain.includes(this.props.synth.dist)
         };
 
         this.adjust = this.adjust.bind(this);
+        this.mute = this.mute.bind(this);
     }
 
 
     adjust(event) {
         switch(event.target.name) {
             case "distortion":
-                this.props.dist.set({distortion: event.target.value / 100});
+                this.props.synth.dist.set({distortion: event.target.value / 100});
                 this.setState({distortion: event.target.value});
                 break;
             case "oversample":
-                this.props.dist.set({oversample: event.taget.value});
+                this.props.synth.dist.set({oversample: event.taget.value});
                 this.setState({oversample: event.target.value});
                 break;
             case "wet":
-                this.props.dist.set({wet: event.target.value / 100});
+                this.props.synth.dist.set({wet: event.target.value / 100});
                 this.setState({wet: event.target.value});
                 break;
+        }
+    }
+
+    mute() {
+        this.props.synth.toggleChain(this.props.synth.dist);
+        this.setState({isOn: !this.state.isOn});
+    }
+
+    onOrOff() {
+        if(this.state.isOn) {
+            return "Off";
+        } else {
+            return "On";
         }
     }
 
@@ -50,6 +65,7 @@ export class Dist extends React.Component {
                 <h1>Wet/Dry</h1>
                 <input name="wet" type='range' min='0' max='100' step='1' value={this.state.wet} onChange={this.adjust}></input>
                 <p>{this.state.wet} % wet</p>
+                <button name="mute" onClick={this.mute}>{this.onOrOff()}</button>
             </div>
         </div>);
     }

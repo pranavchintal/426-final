@@ -10,24 +10,25 @@ export class Delay extends React.Component {
 
 
         this.state = {
-            delayTime: this.props.delay.delayTime.value * 1000,
-            feedback: this.props.delay.feedback.value * 100,
-            // maxDelay: this.props.delay.maxDelay,
-            wet: this.props.delay.wet.value * 100
+            delayTime: this.props.synth.delay.delayTime.value * 1000,
+            feedback: this.props.synth.delay.feedback.value * 100,
+            wet: this.props.synth.delay.wet.value * 100,
+            isOn: this.props.synth.chain.includes(this.props.synth.delay)
         };
 
         this.adjust = this.adjust.bind(this);
+        this.mute = this.mute.bind(this);
     }
 
 
     adjust(event) {
         switch(event.target.name) {
             case "delayTime":
-                this.props.delay.set({delayTime: event.target.value / 1000});
+                this.props.synth.delay.set({delayTime: event.target.value / 1000});
                 this.setState({delayTime: event.target.value});
                 break;
             case "feedback":
-                this.props.delay.set({feedback: event.target.value / 100});
+                this.props.synth.delay.set({feedback: event.target.value / 100});
                 this.setState({feedback: event.target.value});
                 break;
             // case "maxDelay":
@@ -36,8 +37,21 @@ export class Delay extends React.Component {
             //     console.log(this.state.maxDelay);
             //     break;
             case "wet":
-                this.props.delay.set({wet: event.target.value / 100});
+                this.props.synth.delay.set({wet: event.target.value / 100});
                 this.setState({wet: event.target.value});                
+        }
+    }
+
+    mute() {
+        this.props.synth.toggleChain(this.props.synth.delay);
+        this.setState({isOn: !this.state.isOn});
+    }
+
+    onOrOff() {
+        if(this.state.isOn) {
+            return "Off";
+        } else {
+            return "On";
         }
     }
 
@@ -59,6 +73,7 @@ export class Delay extends React.Component {
                 <h1>Wet/Dry</h1>
                 <input name="wet" type='range' min='0' max='100' step='1' value={this.state.wet} onChange={this.adjust}></input>
                 <p>{this.state.wet} % wet</p>
+                <button name="mute" onClick={this.mute}>{this.onOrOff()}</button>
             </div>
         </div>);
     }

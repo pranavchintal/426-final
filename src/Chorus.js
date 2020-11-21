@@ -10,27 +10,42 @@ export class Chorus extends React.Component {
 
 
         this.state = {
-            frequency: this.props.chorus.freqency, 
-            delayTime: this.props.chorus.delayTime,
-            depth: this.props.chorus.depth * 100,
+            frequency: this.props.synth.chorus.freqency, 
+            delayTime: this.props.synth.chorus.delayTime,
+            depth: this.props.synth.chorus.depth * 100,
+            isOn: this.props.synth.chain.includes(this.props.synth.chorus)
         };
 
         this.adjust = this.adjust.bind(this);
+        this.mute = this.mute.bind(this);
     }
 
+
+    mute() {
+        this.props.synth.toggleChain(this.props.synth.chorus);
+        this.setState({isOn: !this.state.isOn});
+    }
+
+    onOrOff() {
+        if(this.state.isOn) {
+            return "Off";
+        } else {
+            return "On";
+        }
+    }
 
     adjust(event) {
         switch(event.target.name) {
             case "frequency":
-                this.props.chorus.set({frequency: event.target.value});
+                this.props.synth.chorus.set({frequency: event.target.value});
                 this.setState({frequency: event.target.value});
                 break;
             case "delayTime":
-                this.props.chorus.set({delayTime: event.target.value / 1000});
+                this.props.synth.chorus.set({delayTime: event.target.value / 1000});
                 this.setState({delayTime: event.target.value});
                 break;
             case "depth":
-                this.props.chorus.set({depth: event.target.value / 100});
+                this.props.synth.chorus.set({depth: event.target.value / 100});
                 this.setState({depth: event.target.value});
                 break;
         }
@@ -51,6 +66,7 @@ export class Chorus extends React.Component {
                 <h1>Depth</h1>
                 <input name="depth" type='range' min='0' max='100' step='1' value={this.state.depth} onChange={this.adjust}></input>
                 <p>{this.state.depth} % wet</p>
+                <button name="mute" onClick={this.mute}>{this.onOrOff()}</button>
             </div>
         </div>);
     }

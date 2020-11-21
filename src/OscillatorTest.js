@@ -84,7 +84,7 @@ export class OscillatorTest extends React.Component {
                 <button onClick={this.changeOsc}>Square</button>
                 <button onClick={this.changeOsc}>Triangle</button>
                 <button onClick={this.changeOsc}>Sine</button>
-                <button onClick={this.changeOsc}>Noise</button>
+                <button onClick={this.changeOsc}>Sawtooth</button>
             </div>
             <div>
                 <h1>Detune</h1>

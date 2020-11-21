@@ -78,10 +78,10 @@ export class TripleOsc extends React.Component {
                 <OscillatorTest synth={this.synth.voice3} />
                 <AmpEnv synth={[this.synth.voice1, this.synth.voice2, this.synth.voice3]} />
                 <FilterEnv env={this.cutoffEnv} filter={this.synth.filter} />
-                <Verb verb={this.synth.verb} parentState={this.state}/>
-                <Chorus chorus={this.synth.chorus} />
-                <Delay delay={this.synth.delay}/>
-                <Dist dist={this.synth.dist} />
+                <Verb synth={this.synth} parentState={this.state}/>
+                <Chorus synth={this.synth} />
+                <Delay synth={this.synth}/>
+                <Dist synth={this.synth} />
                 <Port synth={[this.synth.voice1, this.synth.voice2, this.synth.voice3]} />
                 
                 {/* <NoiseOsc synth={this.synthArr[2]} /> */}

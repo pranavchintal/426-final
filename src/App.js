@@ -10,8 +10,6 @@ import {AmpEnv} from "./AmpEnv.js"
 
 function App() {
 
-  // const synth1 = new Tone.Synth().toDestination();
-  // synth1.oscillator.type = "sine32";
   Tone.start();
 
     return (

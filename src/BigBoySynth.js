@@ -9,11 +9,18 @@ export class BigBoySynth {
         this.verb = new Tone.Reverb(synthOptions.reverb);
         this.delay = new Tone.FeedbackDelay(synthOptions.delay);
         this.dist = new Tone.Distortion(synthOptions.distortion);
-        this.chain = [this.filter, this.chorus, this.verb, this.delay, this.dist, Tone.Destination];
+        this.chain = [null, null, null, null, null];
+        this.chainOrder = [this.filter, this.chorus, this.verb, this.delay, this.dist]
 
-        this.voice1 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice1).chain(...this.chain);
-        this.voice2 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice2).chain(...this.chain);
-        this.voice3 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice3).chain(...this.chain);
+        this.voice1 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice1).chain(...this.noNull(this.chain), Tone.Destination);
+        this.voice2 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice2).chain(...this.noNull(this.chain), Tone.Destination);
+        this.voice3 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice3).chain(...this.noNull(this.chain), Tone.Destination);
+
+        this.toggleChain = this.toggleChain.bind(this);
+    }
+
+    noNull(arr) {
+        return arr.filter(elm => elm !== null);
     }
 
     playNote(event) {
@@ -28,6 +35,25 @@ export class BigBoySynth {
         this.voice1.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
         this.voice2.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
         this.voice3.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
+    }
+
+    toggleChain(effect) {
+        if(this.chain.includes(effect)) {
+            //this.chain = this.chain.filter(elm => elm !== effect);
+            delete this.chain[this.chainOrder.indexOf(effect)];
+            effect.disconnect();
+        } else {
+            this.chain.splice(this.chainOrder.indexOf(effect), 1, effect);
+        }
+              
+        console.log(this.chain);
+        
+        this.voice1.chain(...this.noNull(this.chain), Tone.Destination);
+        this.voice2.chain(...this.noNull(this.chain), Tone.Destination);
+        this.voice3.chain(...this.noNull(this.chain), Tone.Destination);
+
+        //console.log(this.chain);
+
     }
 
 
