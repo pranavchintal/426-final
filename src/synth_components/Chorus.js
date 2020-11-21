@@ -39,15 +39,12 @@ export class Chorus extends React.Component {
 
         return (<div className='container'>
             <div>
-                <h1>Frequency</h1>
+                <p>RATE</p>
                 <input name="frequency" type='range' min='0' max='20000' step='1' value={this.state.frequency} onChange={this.adjust}></input>
-                <p>{this.state.freqency} ms</p>
-                <h1>Delay Time</h1>
+                <p>DELAY</p>
                 <input name="delayTime" type='range' min='0' max='1000' step='1' value={this.state.delayTime} onChange={this.adjust}></input>
-                <p>{this.state.delayTime} ms</p>
-                <h1>Depth</h1>
+                <p>DEPTH</p>
                 <input name="depth" type='range' min='0' max='100' step='1' value={this.state.depth} onChange={this.adjust}></input>
-                <p>{this.state.depth} % wet</p>
             </div>
         </div>);
     }

@@ -39,16 +39,10 @@ export class Dist extends React.Component {
 
         return (<div className='container'>
             <div>
-                <h1>Distortion</h1>
+                <p>AMOUNT</p>
                 <input name="distortion" type='range' min='0' max='100' step='1' value={this.state.distortion} onChange={this.adjust}></input>
-                <p>{this.state.distortion} ms</p>
-                {/* <h1>Predelay</h1>
-                <input name="oversample
-" type='range' min='0' max='1000' step='1' value={this.state.level} onChange={this.adjust}></input>
-                <p>{this.state.oversample} ms</p> */}
-                <h1>Wet/Dry</h1>
+                <p>WET/DRY</p>
                 <input name="wet" type='range' min='0' max='100' step='1' value={this.state.wet} onChange={this.adjust}></input>
-                <p>{this.state.wet} % wet</p>
             </div>
         </div>);
     }

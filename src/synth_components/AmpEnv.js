@@ -57,18 +57,14 @@ export class AmpEnv extends React.Component {
     render() {
         return (
         <div className='container'>
-            <h1>Attack</h1>
+            <p>ATTACK</p>
             <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input>
-            <p>{this.state.attack} ms</p>
-            <h1>Decay</h1>
+            <p>DECAY</p>
             <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input>
-            <p>{this.state.decay} ms</p>
-            <h1>Sustain</h1>
+            <p>SUSTAIN</p>
             <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input>
-            <p>{this.state.sustain} ms</p>
-            <h1>Release</h1>
-            <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>
-            <p>{this.state.release} ms</p>        
+            <p>RELEASE</p>
+            <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>     
         </div>
         )
     }

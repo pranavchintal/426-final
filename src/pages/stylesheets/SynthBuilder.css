@@ -1,5 +1,4 @@
 #creator-container {
-    position: relative;
     height: 100vh;
     width: 100%;
     background: #240046;
@@ -10,6 +9,7 @@
     overflow: hidden;
     padding-left: 100px;
     padding-right: 100px;
+    padding-bottom: 110px;
 }
 
 .creator-title {

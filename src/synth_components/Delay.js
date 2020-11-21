@@ -41,18 +41,14 @@ export class Delay extends React.Component {
 
         return (<div className='container'>
             <div>
-                <h1>Delay Time</h1>
+                <p>TIME</p>
                 <input name="delayTime" type='range' min='0' max='1000' step='1' value={this.state.delayTime} onChange={this.adjust}></input>
-                <p>{this.state.delayTime} ms</p>
-                <h1>Feedback</h1>
+                <p>FEEDBACK</p>
                 <input name="feedback" type='range' min='0' max='100' step='1' value={this.state.feedback} onChange={this.adjust}></input>
-                <p>{this.state.feedback} %</p>
-                <h1>Maximum Delay</h1>
-                <input name="maxDelay" type='range' min='0' max='3000' step='1' value={this.state.maxDelay} onChange={this.adjust}></input>
-                <p>{this.state.maxDelay} % wet</p>                
-                <h1>Wet/Dry</h1>
+                <p>MAX DELAY</p>
+                <input name="maxDelay" type='range' min='0' max='3000' step='1' value={this.state.maxDelay} onChange={this.adjust}></input>              
+                <p>WET/DRY</p>
                 <input name="wet" type='range' min='0' max='100' step='1' value={this.state.level} onChange={this.adjust}></input>
-                <p>{this.state.wet} % wet</p>
             </div>
         </div>);
     }

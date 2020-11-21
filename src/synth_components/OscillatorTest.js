@@ -1,5 +1,7 @@
 /* eslint-disable default-case */
 import React from 'react';
+import { Knob, Pointer } from 'rc-knob';
+import Switch from "react-switch";
 
 import '../pages/stylesheets/SynthComponents.css';
 
@@ -12,7 +14,7 @@ export class OscillatorTest extends React.Component {
             displayCents: OscillatorTest.defaultCents,
             level: OscillatorTest.defaultLevel,
             keyPressed: false,
-            mute: false
+            mute: this.props.mutedOnLoad
         };
 
         this.changeOsc = this.changeOsc.bind(this);
@@ -29,13 +31,13 @@ export class OscillatorTest extends React.Component {
                     }
                 });
                 break;
-            case "Triangle":
-                this.props.synth.set({
-                    oscillator: {
-                        type: "triangle32"
-                    }
-                });
-                break;
+            // case "Triangle":
+            //     this.props.synth.set({
+            //         oscillator: {
+            //             type: "triangle32"
+            //         }
+            //     });
+            //     break;
             case "Sine":
                 this.props.synth.set({
                     oscillator: {
@@ -43,7 +45,7 @@ export class OscillatorTest extends React.Component {
                     }
                 });
                 break;
-            case "Sawtooth":
+            case "Saw":
                 this.props.synth.set({
                     oscillator: {
                         type: "sawtooth32"
@@ -75,27 +77,66 @@ export class OscillatorTest extends React.Component {
             this.setState({ mute: false });
             this.props.synth.set({ volume: this.state.level });
         }
+        console.log(this.state.mute);
     }
 
     render() {
 
+        let oscContainerClass = !this.state.mute ? "oscillator-container-active" : "oscillator-container-inactive";
+        let oscLabelClass = !this.state.mute ? "osc-label-active" : "osc-label-inactive";
 
         return (
-            <div className='oscillator-container'>
+            <div className={oscContainerClass}>
+                <p className={oscLabelClass}>OSC {this.props.oscNum}</p>
+                <label>
+                        <Switch 
+                            onChange={this.muteOsc} 
+                            checked={!this.state.mute}
+                            offColor="#D3CCDA" 
+                            onColor="#917FA2"
+                            onHandleColor="#240046"
+                            handleDiameter={20}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            activeBoxShadow="0px 0px 1px 5px rgba(0, 0, 0, 0.2)"
+                            height={14}
+                            width={34}
+                            className="osc-switch"
+                            />
+                    </label>
                 <div>
                     <button onClick={this.changeOsc}>Square</button>
-                    <button onClick={this.changeOsc}>Triangle</button>
+                    {/* <button onClick={this.changeOsc}>Triangle</button> */}
                     <button onClick={this.changeOsc}>Sine</button>
-                    <button onClick={this.changeOsc}>Noise</button>
+                    <button onClick={this.changeOsc}>Saw</button>
                 </div>
                 <div>
-                    <h1>Detune</h1>
-                    <input name="cents" type='range' min='-100' max='100' step='1' value={this.state.displayCents} onChange={this.adjust}></input>
-                    <p>{this.state.displayCents}</p>
-                    <h1>Level</h1>
+                    <div className="detune-knob">
+                        <Knob
+                            size={42}
+                            angleOffset={220}
+                            angleRange={280}
+                            min={-100}
+                            max={100}
+                            className="styledKnob"
+                            onChange={value => console.log(value)}
+                        >
+                            <circle r="21" cx="21" cy="21" />
+                            <Pointer
+                                width={2}
+                                height={21}
+                                radius={0}
+                                type="rect"
+                                color="#fff"
+                            />
+                        </Knob>
+                        <p className="knob-label">DETUNE</p>
+                    </div>
+                    {/* <input name="cents" type='range' min='-100' max='100' step='1' value={this.state.displayCents} onChange={this.adjust}></input> */}
+                    <p>LEVEL</p>
                     <input name="level" type='range' min='-30' max='0' step='1' value={this.state.level} onChange={this.adjust}></input>
-                    <p>{this.state.level} db</p>
-                    <button onClick={this.muteOsc}>Mute</button>
+
+                    {/* <button onClick={this.muteOsc}>Mute</button> */}
                 </div>
             </div>);
     }

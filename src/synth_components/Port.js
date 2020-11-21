@@ -26,9 +26,8 @@ export class Port extends React.Component {
 
         return (<div className='container'>
             <div>
-                <h1>Portamento</h1>
+                <p>GLIDE</p>
                 <input name="port" type='range' min='0' max='3000' step='1' value={this.state.portTime} onChange={this.adjust}></input>
-                <p>{this.state.portTime} ms</p>
             </div>
         </div>);
     }

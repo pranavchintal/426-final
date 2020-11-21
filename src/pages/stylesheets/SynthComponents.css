@@ -1,6 +1,89 @@
-.oscillator-container {
+.oscillator-container-inactive {
+    display: inline-block;
     border: 4px solid white;
     border-radius: 50%;
     height: 234px;
     width: 234px;
+    padding: 30px;
+    margin-right: 45px;
+    font-family: futura-pt, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    color: #240046;
+}
+
+.oscillator-container-active {
+    display: inline-block;
+    background: white;
+    border: 4px solid white;
+    border-radius: 50%;
+    height: 234px;
+    width: 234px;
+    padding: 30px;
+    margin-right: 45px;
+    font-family: futura-pt, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    color: #240046;
+}
+
+.osc-label-inactive {
+    color: white;
+    font-size: 22px;
+}
+
+.osc-label-active {
+    color: #240046;
+    font-size: 22px;
+}
+
+.osc-switch {
+    margin-top: 15px;
+}
+
+.styledKnob circle,
+.styledKnob path {
+    fill: #240046;
+}
+
+.styledKnob {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.detune-knob {
+    width: 58px;
+    height: 71px;
+    text-align: center;
+}
+
+.knob-label {
+    margin-top: 9px;
+}
+
+.amp-container {
+    display: inline-block;
+    font-family: futura-pt, sans-serif;
+    font-weight: 600;
+    text-align: center;
+}
+
+.filter-container {
+    display: inline-block;
+    font-family: futura-pt, sans-serif;
+    font-weight: 600;
+    text-align: center;
+}
+
+.fx-container {
+    display: inline-block;
+    border: 4px solid white;
+    border-radius: 91px;
+    height: 234px;
+    width: 148px;
+    padding: 5px;
+    font-family: futura-pt, sans-serif;
+    font-weight: 600;
+    text-align: center;
 }

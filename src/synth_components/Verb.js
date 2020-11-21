@@ -39,15 +39,12 @@ export class Verb extends React.Component {
 
         return (<div className='container'>
             <div>
-                <h1>Decay</h1>
+                <p>DECAY</p>
                 <input name="decay" type='range' min='1' max='3000' step='1' value={this.state.displayCents} onChange={this.adjust}></input>
-                <p>{this.state.decay} ms</p>
-                <h1>Predelay</h1>
+                <p>PREDELAY</p>
                 <input name="predelay" type='range' min='0' max='1000' step='1' value={this.state.level} onChange={this.adjust}></input>
-                <p>{this.state.preDelay} ms</p>
-                <h1>Wet/Dry</h1>
+                <p>WET/DRY</p>
                 <input name="wet" type='range' min='0' max='100' step='1' value={this.state.level} onChange={this.adjust}></input>
-                <p>{this.state.wet} % wet</p>
             </div>
         </div>);
     }

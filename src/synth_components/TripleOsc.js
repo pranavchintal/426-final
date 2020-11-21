@@ -1,13 +1,13 @@
 import React from "react";
 import * as Tone from 'tone';
-import {OscillatorTest} from "./OscillatorTest.js";
-import {AmpEnv} from "./AmpEnv.js";
-import {FilterEnv} from "./FilterEnv.js"
-import {Verb} from "./Verb.js";
-import {Chorus} from "./Chorus.js";
-import {Delay} from "./Delay.js";
-import {Dist} from "./Dist.js";
-import {Port} from "./Port.js";
+import { OscillatorTest } from "./OscillatorTest.js";
+import { AmpEnv } from "./AmpEnv.js";
+import { FilterEnv } from "./FilterEnv.js"
+import { Verb } from "./Verb.js";
+import { Chorus } from "./Chorus.js";
+import { Delay } from "./Delay.js";
+import { Dist } from "./Dist.js";
+import { Port } from "./Port.js";
 
 export class TripleOsc extends React.Component {
 
@@ -22,41 +22,59 @@ export class TripleOsc extends React.Component {
         this.verb = new Tone.Reverb();
         this.delay = new Tone.FeedbackDelay();
         this.dist = new Tone.Distortion();
-        for(let i = 0; i < TripleOsc.oscNum; i++) {
+        for (let i = 0; i < TripleOsc.oscNum; i++) {
             this.synthArr.push(new Tone.PolySynth(Tone.MonoSynth).chain(this.filter, this.chorus, this.verb, this.delay, this.dist, Tone.Destination));
-            this.synthArr[i].set({volume: -15});
+            this.synthArr[i].set({ volume: -15 });
         }
 
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleKeyRelease = this.handleKeyRelease.bind(this);
 
     }
-    
+
     handleKeyRelease(event) {
         this.synthArr.forEach(synth => synth.triggerRelease(TripleOsc.keyNoteMap[event.keyCode]));
     }
 
 
     handleKeyPress(event) {
-        if(!event.repeat && TripleOsc.keyNoteMap[event.keyCode] !== undefined) {
+        if (!event.repeat && TripleOsc.keyNoteMap[event.keyCode] !== undefined) {
             this.synthArr.forEach(synth => synth.triggerAttack(TripleOsc.keyNoteMap[event.keyCode]));
-        } else if(event.key == "1") {
+        } else if (event.key === "1") {
             this.synthArr.forEach(synth => synth.releaseAll());
         }
-      }
+    }
 
     render() {
         return (
             <div onKeyDown={this.handleKeyPress} onKeyUp={this.handleKeyRelease}>
-                <OscillatorTest synth={this.synthArr[0]} />
-                <OscillatorTest synth={this.synthArr[1]} />
-                <OscillatorTest synth={this.synthArr[2]} />
-                <AmpEnv synth={this.synthArr} />
-                <FilterEnv env={this.cutoffEnv} filter={this.filter} />
-                <Verb verb={this.verb} />
-                <Chorus chorus={this.chorus} />
-                <Delay delay={this.delay}/>
-                <Dist dist={this.dist} />
+                <OscillatorTest synth={this.synthArr[0]} oscNum="1" mutedOnLoad={false} />
+                <OscillatorTest synth={this.synthArr[1]} oscNum="2" mutedOnLoad={true} />
+                <OscillatorTest synth={this.synthArr[2]} oscNum="3" mutedOnLoad={true} />
+                <div className="amp-container">
+                    <p>VCA</p>
+                    <AmpEnv synth={this.synthArr} />
+                </div>
+                <div className="filter-container">
+                    <p>FILTER</p>
+                    <FilterEnv env={this.cutoffEnv} filter={this.filter} />
+                </div>
+                <div className="fx-container">
+                    <p>REVERB</p>
+                    <Verb verb={this.verb} />
+                </div>
+                <div className="fx-container">
+                    <p>CHORUS</p>
+                    <Chorus chorus={this.chorus} />
+                </div>
+                <div className="fx-container">
+                    <p>DELAY</p>
+                    <Delay delay={this.delay} />
+                </div>
+                <div className="fx-container">
+                    <p>DIST</p>
+                    <Dist dist={this.dist} />
+                </div>
                 <Port synth={this.synthArr} />
             </div>
         )
