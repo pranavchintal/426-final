@@ -11,15 +11,15 @@ export class OscillatorTest extends React.Component {
         super(props);
 
         this.state = {
-            displayCents: OscillatorTest.defaultCents,
-            level: OscillatorTest.defaultLevel,
-            keyPressed: false,
+            displayCents: this.props.synth.get().detune,
+            level: this.props.synth.get().volume,
             mute: this.props.mutedOnLoad
         };
 
         this.changeOsc = this.changeOsc.bind(this);
         this.adjust = this.adjust.bind(this);
         this.muteOsc = this.muteOsc.bind(this);
+        this.preventDrag = this.preventDrag.bind(this);
     }
 
     changeOsc(event) {
@@ -53,6 +53,10 @@ export class OscillatorTest extends React.Component {
                 });
                 break;
         }
+    }
+
+    preventDrag(e) {
+        e.preventDefault();
     }
 
     adjust(event) {
@@ -111,7 +115,7 @@ export class OscillatorTest extends React.Component {
                     <button onClick={this.changeOsc}>Saw</button>
                 </div>
                 <div>
-                    <div className="detune-knob">
+                    <div className="detune-knob" onMouseDown={this.preventDrag}>
                         <Knob
                             size={42}
                             angleOffset={220}
@@ -134,7 +138,7 @@ export class OscillatorTest extends React.Component {
                     </div>
                     {/* <input name="cents" type='range' min='-100' max='100' step='1' value={this.state.displayCents} onChange={this.adjust}></input> */}
                     <p>LEVEL</p>
-                    <input name="level" type='range' min='-30' max='0' step='1' value={this.state.level} onChange={this.adjust}></input>
+                    <input name="level" type='range' min='-30' max='-10' step='1' value={this.state.level} onChange={this.adjust}></input>
 
                     {/* <button onClick={this.muteOsc}>Mute</button> */}
                 </div>

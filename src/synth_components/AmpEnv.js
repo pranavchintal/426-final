@@ -6,11 +6,12 @@ export class AmpEnv extends React.Component {
         super(props);
 
         this.state = {
-            attack: 0,
-            decay: 0,
-            sustain: 0,
-            release: 0
+            attack: (this.props.synth[0].get().envelope.attack * 1000),
+            decay: (this.props.synth[0].get().envelope.decay * 1000),
+            sustain: (this.props.synth[0].get().envelope.sustain * 1000),
+            release: (this.props.synth[0].get().envelope.release * 1000)
         }
+
 
         this.adjust = this.adjust.bind(this);
     }
