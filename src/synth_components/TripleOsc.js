@@ -17,9 +17,7 @@ export class TripleOsc extends React.Component {
     constructor(props) {
 
         super(props);
-
         this.synth = new BigBoySynth(new BigBoyOptions({}));
-        this.cutoffEnv = new Tone.Envelope();
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleKeyRelease = this.handleKeyRelease.bind(this);
 
@@ -42,11 +40,11 @@ export class TripleOsc extends React.Component {
                 <OscillatorTest synth={this.synth.voice3} oscNum="3" mutedOnLoad={true} />
                 <div className="amp-container">
                     <p>VCA</p>
-                    <AmpEnv synth={[this.synth.voice1, this.synth.voice2, this.synth.voice3]} />
+                    <AmpEnv synth={this.synth.voices} />
                 </div>
                 <div className="filter-container">
                     <p>FILTER</p>
-                    <FilterEnv env={this.cutoffEnv} filter={this.synth.filter} />
+                    <FilterEnv synth={this.synth.voices} />
                 </div>
                 <div className="fx-container">
                     <p>REVERB</p>
@@ -64,10 +62,8 @@ export class TripleOsc extends React.Component {
                     <p>DIST</p>
                     <Dist synth={this.synth} />
                 </div>
-                <Port synth={[this.synth.voice1, this.synth.voice2, this.synth.voice3]} />
+                <Port synth={this.synth.voices} />
             </div>
         )
     }
 }
-
-TripleOsc.oscNum = 3;

@@ -3,7 +3,6 @@ import * as Tone from 'tone';
 export class BigBoyOptions {
 
     constructor(synth) {
-        this.filter = synth.filter === undefined ? Tone.Filter.getDefaults() : synth.filter.get();
         this.chorus = synth.chorus === undefined ? Tone.Chorus.getDefaults() : synth.chorus.get();
         this.reverb = synth.verb === undefined ? Tone.Reverb.getDefaults() : synth.verb.get();
         this.delay = synth.delay === undefined ? Tone.FeedbackDelay.getDefaults() : synth.delay.get();

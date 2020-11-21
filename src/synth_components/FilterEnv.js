@@ -7,11 +7,11 @@ export class FilterEnv extends React.Component {
         super(props);
 
         this.state = {
-            cutoff: 0,
-            attack: 0,
-            decay: 0,
-            sustain: 0,
-            release: 0
+            cutoff: this.props.synth[0].options.filter.frequency,
+            attack: this.props.synth[0].options.filterEnvelope.attack * 1000,
+            decay: this.props.synth[0].options.filterEnvelope.decay * 1000,
+            sustain: this.props.synth[0].options.filterEnvelope.sustain * 1000,
+            release: this.props.synth[0].options.filterEnvelope.release * 1000,
         }
 
         this.adjust = this.adjust.bind(this);
@@ -22,47 +22,45 @@ export class FilterEnv extends React.Component {
         
         switch(event.target.name) {
             case "attack":
-                // this.props.synth.forEach(elm => {
-                //     elm.set({envelope:
-                //         {attack: event.target.value / 1000}
-                //     });
-                // });
-                this.props.env.set({attack: event.target.value});
+                this.props.synth.forEach(elm => {
+                    elm.set({filterEnvelope:
+                        {attack: event.target.value / 1000}
+                    });
+                });
                 this.setState({attack: event.target.value});
                 break;
             case "decay":
-                // this.props.synth.forEach(elm => {
-                //     elm.set({envelope:
-                //         {decay: event.target.value / 1000}
-                //     });
-                // });                
+                this.props.synth.forEach(elm => {
+                    elm.set({filterEnvelope:
+                        {decay: event.target.value / 1000}
+                    });
+                });                
                 this.setState({decay: event.target.value});
                 break;
             case "sustain":
-                // this.props.synth.forEach(elm => {
-                //     elm.set({envelope:
-                //         {sustain: event.target.value / 1000}
-                //     });
-                // });                
+                this.props.synth.forEach(elm => {
+                    elm.set({filterEnvelope:
+                        {sustain: event.target.value / 1000}
+                    });
+                });                
                 this.setState({sustain: event.target.value});
                 break;
             case "release":
-                // this.props.synth.forEach(elm => {
-                //     elm.set({envelope:
-                //         {release: event.target.value / 1000}
-                //     });
-                // });                
+                this.props.synth.forEach(elm => {
+                    elm.set({filterEnvelope:
+                        {release: event.target.value / 1000}
+                    });
+                });                
                 this.setState({release: event.target.value});
                 break;
             case "cutoff":
-                // this.props.synth.forEach(elm => {
-                //     elm.set({
-                //         filter: {
-                //             frequency: event.target.value
-                //         }
-                //     });
-                // })
-                this.props.filter.set({frequency: event.target.value});
+                this.props.synth.forEach(elm => {
+                    elm.set({
+                        filter: {
+                            frequency: event.target.value
+                        }
+                    });
+                });
                 this.setState({cutoff: event.target.value});
                 break;
         }
