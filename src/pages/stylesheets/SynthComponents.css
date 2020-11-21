@@ -62,6 +62,10 @@
     margin-top: 9px;
 }
 
+.waveform-selector {
+    width: 80px;
+}
+
 .amp-container {
     display: inline-block;
     font-family: futura-pt, sans-serif;
