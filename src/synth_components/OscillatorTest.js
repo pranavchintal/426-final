@@ -2,6 +2,11 @@
 import React from 'react';
 import { Knob, Pointer } from 'rc-knob';
 import Switch from "react-switch";
+import Select from 'react-select';
+import {ReactComponent as SawWave} from '../pages/icons/saw_wave.svg';
+import {ReactComponent as SineWave} from '../pages/icons/sine_wave.svg';
+import {ReactComponent as SquareWave} from '../pages/icons/square_wave.svg';
+
 
 import '../pages/stylesheets/SynthComponents.css';
 
@@ -88,6 +93,11 @@ export class OscillatorTest extends React.Component {
 
         let oscContainerClass = !this.state.mute ? "oscillator-container-active" : "oscillator-container-inactive";
         let oscLabelClass = !this.state.mute ? "osc-label-active" : "osc-label-inactive";
+        const options = [
+            { value: 'sawtooth32', label: <SawWave /> },
+            { value: 'sine32', label: <SineWave /> },
+            { value: 'square32', label: <SquareWave /> }
+          ]
 
         return (
             <div className={oscContainerClass}>
@@ -136,6 +146,7 @@ export class OscillatorTest extends React.Component {
                         </Knob>
                         <p className="knob-label">DETUNE</p>
                     </div>
+                    <Select options={options} className="waveform-selector"/>
                     {/* <input name="cents" type='range' min='-100' max='100' step='1' value={this.state.displayCents} onChange={this.adjust}></input> */}
                     <p>LEVEL</p>
                     <input name="level" type='range' min='-30' max='-10' step='1' value={this.state.level} onChange={this.adjust}></input>
