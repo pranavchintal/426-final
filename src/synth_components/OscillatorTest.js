@@ -1,11 +1,13 @@
 /* eslint-disable default-case */
 import React from 'react';
-import { Knob, Pointer } from 'rc-knob';
 import Switch from "react-switch";
 import Select from 'react-select';
-import {ReactComponent as SawWave} from '../pages/icons/saw_wave.svg';
-import {ReactComponent as SineWave} from '../pages/icons/sine_wave.svg';
-import {ReactComponent as SquareWave} from '../pages/icons/square_wave.svg';
+import { ReactComponent as SawWave } from '../pages/icons/saw_wave.svg';
+import { ReactComponent as SineWave } from '../pages/icons/sine_wave.svg';
+import { ReactComponent as SquareWave } from '../pages/icons/square_wave.svg';
+import CircularSlider from '@fseehawer/react-circular-slider';
+import { CustomizedSlider } from '../pages/small_components/CustomizedSlider';
+import { VerticalSlider } from '../pages/small_components/VerticalSlider';
 
 
 import '../pages/stylesheets/SynthComponents.css';
@@ -36,13 +38,6 @@ export class OscillatorTest extends React.Component {
                     }
                 });
                 break;
-            // case "Triangle":
-            //     this.props.synth.set({
-            //         oscillator: {
-            //             type: "triangle32"
-            //         }
-            //     });
-            //     break;
             case "Sine":
                 this.props.synth.set({
                     oscillator: {
@@ -93,40 +88,86 @@ export class OscillatorTest extends React.Component {
 
         let oscContainerClass = !this.state.mute ? "oscillator-container-active" : "oscillator-container-inactive";
         let oscLabelClass = !this.state.mute ? "osc-label-active" : "osc-label-inactive";
+        let oscParamsVisibility = !this.state.mute ? "osc-params-visible" : "osc-params-invisible";
+        
         const options = [
-            { value: 'sawtooth32', label: <SawWave /> },
             { value: 'sine32', label: <SineWave /> },
+            { value: 'sawtooth32', label: <SawWave /> },
             { value: 'square32', label: <SquareWave /> }
-          ]
+        ]
+
+        const customStyles = {
+            option: (provided, state) => ({
+                ...provided,
+                border: "none",
+                background: state.isFocused ? '#D3CCDA' : 'white',
+                cursor: 'pointer',
+                height: 50
+            }),
+            control: (provided, state) => ({
+                // none of react-select's styles are passed to <Control />
+                ...provided,
+                background: 'none',
+                border: 'none',
+                width: 65,
+                boxShadow: '0 0 0 0',
+                cursor: 'pointer'
+            }),
+            indicatorSeparator: () => ({
+                opacity: "0",
+                width: 0,
+            }),
+            dropdownIndicator: (provided) => ({
+                color: '#240046'
+            }),
+            valueContainer: (provided) => ({
+                ...provided,
+                height: 40,
+            }),
+            singleValue: (provided, state) => {
+                const opacity = state.isDisabled ? 0.5 : 1;
+                const transition = 'opacity 300ms';
+
+                return { ...provided, opacity, transition };
+            }
+        }
 
         return (
             <div className={oscContainerClass}>
                 <p className={oscLabelClass}>OSC {this.props.oscNum}</p>
                 <label>
-                        <Switch 
-                            onChange={this.muteOsc} 
-                            checked={!this.state.mute}
-                            offColor="#D3CCDA" 
-                            onColor="#917FA2"
-                            onHandleColor="#240046"
-                            handleDiameter={20}
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            activeBoxShadow="0px 0px 1px 5px rgba(0, 0, 0, 0.2)"
-                            height={14}
-                            width={34}
-                            className="osc-switch"
-                            />
-                    </label>
+                    <Switch
+                        onChange={this.muteOsc}
+                        checked={!this.state.mute}
+                        offColor="#D3CCDA"
+                        onColor="#917FA2"
+                        onHandleColor="#240046"
+                        handleDiameter={20}
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        activeBoxShadow="0px 0px 1px 5px rgba(0, 0, 0, 0.2)"
+                        height={14}
+                        width={34}
+                        className="osc-switch"
+                    />
+                </label>
                 <div>
-                    <button onClick={this.changeOsc}>Square</button>
-                    {/* <button onClick={this.changeOsc}>Triangle</button> */}
+                    {/* <button onClick={this.changeOsc}>Square</button>
                     <button onClick={this.changeOsc}>Sine</button>
-                    <button onClick={this.changeOsc}>Saw</button>
+                    <button onClick={this.changeOsc}>Saw</button> */}
                 </div>
-                <div>
-                    <div className="detune-knob" onMouseDown={this.preventDrag}>
-                        <Knob
+                <div className={oscParamsVisibility}>
+                <div className="detune-slider-and-label">
+                    <div className="detune-slider">
+                        <VerticalSlider defaultValue={50} min={-100} max={100} />
+                    </div>
+                    <p className="vertical-slider-label">DETUNE</p>
+                </div>
+                    <div className="wave-dropdown">
+                        <Select options={options} styles={customStyles} defaultValue={options[0]} isSearchable={false} className="waveform-selector" />
+                    </div>
+                    <div className="pitch-knob" onMouseDown={this.preventDrag}>
+                        {/* <Knob
                             size={42}
                             angleOffset={220}
                             angleRange={280}
@@ -143,13 +184,29 @@ export class OscillatorTest extends React.Component {
                                 type="rect"
                                 color="#fff"
                             />
-                        </Knob>
-                        <p className="knob-label">DETUNE</p>
+                        </Knob> */}
+                        <CircularSlider
+                            width={42}
+                            onChange={value => { console.log(value); }}
+                            min={-12}
+                            max={12}
+                            knobPosition="left"
+                            hideKnob={true}
+                            trackColor="#917FA2"
+                            progressColorFrom="#240046"
+                            progressColorTo="#240046"
+                            hideLabelValue={true}
+                        />
+                        <p className="knob-label">PITCH</p>
                     </div>
-                    <Select options={options} className="waveform-selector"/>
+
                     {/* <input name="cents" type='range' min='-100' max='100' step='1' value={this.state.displayCents} onChange={this.adjust}></input> */}
-                    <p>LEVEL</p>
-                    <input name="level" type='range' min='-30' max='-10' step='1' value={this.state.level} onChange={this.adjust}></input>
+                    <div className="volume-slider">
+
+                        {/* <input name="level" type='range' min='-30' max='-10' step='1' value={this.state.level} onChange={this.adjust}></input> */}
+                        <CustomizedSlider defaultValue={-15} min={-30} max={-10} />
+                        <p>LEVEL</p>
+                    </div>
 
                     {/* <button onClick={this.muteOsc}>Mute</button> */}
                 </div>

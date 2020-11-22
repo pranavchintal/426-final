@@ -1,5 +1,7 @@
 /* eslint-disable default-case */
 import React from "react";
+import CircularSlider from '@fseehawer/react-circular-slider';
+import { VerticalSlider } from '../pages/small_components/VerticalSlider';
 
 export class FilterEnv extends React.Component {
 
@@ -19,39 +21,43 @@ export class FilterEnv extends React.Component {
 
 
     adjust(event) {
-        
-        switch(event.target.name) {
+
+        switch (event.target.name) {
             case "attack":
                 this.props.synth.forEach(elm => {
-                    elm.set({filterEnvelope:
-                        {attack: event.target.value / 1000}
+                    elm.set({
+                        filterEnvelope:
+                            { attack: event.target.value / 1000 }
                     });
                 });
-                this.setState({attack: event.target.value});
+                this.setState({ attack: event.target.value });
                 break;
             case "decay":
                 this.props.synth.forEach(elm => {
-                    elm.set({filterEnvelope:
-                        {decay: event.target.value / 1000}
+                    elm.set({
+                        filterEnvelope:
+                            { decay: event.target.value / 1000 }
                     });
-                });                
-                this.setState({decay: event.target.value});
+                });
+                this.setState({ decay: event.target.value });
                 break;
             case "sustain":
                 this.props.synth.forEach(elm => {
-                    elm.set({filterEnvelope:
-                        {sustain: event.target.value / 1000}
+                    elm.set({
+                        filterEnvelope:
+                            { sustain: event.target.value / 1000 }
                     });
-                });                
-                this.setState({sustain: event.target.value});
+                });
+                this.setState({ sustain: event.target.value });
                 break;
             case "release":
                 this.props.synth.forEach(elm => {
-                    elm.set({filterEnvelope:
-                        {release: event.target.value / 1000}
+                    elm.set({
+                        filterEnvelope:
+                            { release: event.target.value / 1000 }
                     });
-                });                
-                this.setState({release: event.target.value});
+                });
+                this.setState({ release: event.target.value });
                 break;
             case "cutoff":
                 this.props.synth.forEach(elm => {
@@ -61,25 +67,70 @@ export class FilterEnv extends React.Component {
                         }
                     });
                 });
-                this.setState({cutoff: event.target.value});
+                this.setState({ cutoff: event.target.value });
                 break;
         }
     }
 
     render() {
         return (
-        <div className='container'>
-            <p>CUTOFF</p>
-            <input onChange={this.adjust} name='cutoff' type='range' min='0' max='20000' step='1' value={this.state.cutoff}></input>
-            <p>ATTACK</p>
-            <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input>
-            <p>DECAY</p>
-            <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input>
-            <p>SUSTAIN</p>
-            <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input>
-            <p>RELEASE</p>
-            <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>      
-        </div>
+            <div className='container'>
+                <div className="filter-knobs">
+                    <div className="filter-cutoff">
+                        <CircularSlider
+                            width={70}
+                            onChange={value => { console.log(value); }}
+                            min={0}
+                            max={20000}
+                            knobPosition="bottom"
+                            hideKnob={true}
+                            trackColor="#654D7E"
+                            progressColorFrom="#D3CCDA"
+                            progressColorTo="#D3CCDA"
+                            progressSize="20px"
+                            hideLabelValue={true}
+                        />
+                        <p className="filter-knob-label">CUTOFF</p>
+                    </div>
+                    <div className="filter-warp">
+                        <CircularSlider
+                            width={70}
+                            onChange={value => { console.log(value); }}
+                            min={0}
+                            max={20000}
+                            knobPosition="bottom"
+                            hideKnob={true}
+                            trackColor="#654D7E"
+                            progressColorFrom="#D3CCDA"
+                            progressColorTo="#D3CCDA"
+                            progressSize="20px"
+                            hideLabelValue={true}
+                        />
+                        <p className="filter-knob-label">WARP</p>
+                    </div>
+                </div>
+                {/* <input onChange={this.adjust} name='cutoff' type='range' min='0' max='20000' step='1' value={this.state.cutoff}></input> */}
+                <div className="filter-slider">
+                    <VerticalSlider defaultValue={10} min={0} max={100} />
+                    <p className="vertical-slider-label">ATTACK</p>
+                    {/* <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input> */}
+                </div>
+                <div className="filter-slider">
+                    <VerticalSlider defaultValue={40} min={0} max={100} />
+                    <p className="vertical-slider-label">DECAY</p>
+                    {/* <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input> */}
+                </div>
+                <div className="filter-slider">
+                    <VerticalSlider defaultValue={80} min={0} max={100} />
+                    <p className="vertical-slider-label">SUSTAIN</p>
+                    {/* <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input> */}
+                </div>
+                <div className="filter-slider">
+                    <VerticalSlider defaultValue={30} min={0} max={100} />
+                    <p className="vertical-slider-label">RELEASE</p>
+                    {/* <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>       */}
+                </div>
+            </div>
         )
     }
 }

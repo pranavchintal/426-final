@@ -1,6 +1,5 @@
 import React from 'react';
-import {TripleOsc} from "../synth_components/TripleOsc.js"
-
+import { TripleOsc } from "../synth_components/TripleOsc.js";
 import './stylesheets/SynthBuilder.css';
 
 export class SynthBuilder extends React.Component {
@@ -35,6 +34,14 @@ export class SynthBuilder extends React.Component {
                             <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
                         </svg>
                     </a>
+                </div>
+                <div className="top-text-labels">
+                    <span className="oscillator-bank">
+                        OSCILLATOR BANK
+                    </span>
+                    <span className="amplifier-envelope">
+                        AMPLIFIER ENVELOPE
+                    </span>
                 </div>
                 <TripleOsc />
             </div>

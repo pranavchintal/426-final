@@ -1,5 +1,8 @@
 /* eslint-disable default-case */
 import React from "react";
+import { VerticalSlider } from '../pages/small_components/VerticalSlider';
+
+
 export class AmpEnv extends React.Component {
 
     constructor(props) {
@@ -18,55 +21,71 @@ export class AmpEnv extends React.Component {
 
 
     adjust(event) {
-        
-        switch(event.target.name) {
+
+        switch (event.target.name) {
             case "attack":
                 this.props.synth.forEach(elm => {
-                    elm.set({envelope:
-                        {attack: event.target.value / 1000}
+                    elm.set({
+                        envelope:
+                            { attack: event.target.value / 1000 }
                     });
                 });
-                this.setState({attack: event.target.value});
+                this.setState({ attack: event.target.value });
                 break;
             case "decay":
                 this.props.synth.forEach(elm => {
-                    elm.set({envelope:
-                        {decay: event.target.value / 1000}
+                    elm.set({
+                        envelope:
+                            { decay: event.target.value / 1000 }
                     });
-                });                
-                this.setState({decay: event.target.value});
+                });
+                this.setState({ decay: event.target.value });
                 break;
             case "sustain":
                 this.props.synth.forEach(elm => {
-                    elm.set({envelope:
-                        {sustain: event.target.value / 1000}
+                    elm.set({
+                        envelope:
+                            { sustain: event.target.value / 1000 }
                     });
-                });                
-                this.setState({sustain: event.target.value});
+                });
+                this.setState({ sustain: event.target.value });
                 break;
             case "release":
                 this.props.synth.forEach(elm => {
-                    elm.set({envelope:
-                        {release: event.target.value / 1000}
+                    elm.set({
+                        envelope:
+                            { release: event.target.value / 1000 }
                     });
-                });                
-                this.setState({release: event.target.value});
+                });
+                this.setState({ release: event.target.value });
                 break;
         }
     }
 
     render() {
         return (
-        <div className='container'>
-            <p>ATTACK</p>
-            <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input>
-            <p>DECAY</p>
-            <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input>
-            <p>SUSTAIN</p>
-            <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input>
-            <p>RELEASE</p>
-            <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>     
-        </div>
+            <div className='container'>
+                <div className="adsr-slider">
+                    <VerticalSlider defaultValue={10} min={0} max={100} />
+                    <p className="vertical-slider-label">ATTACK</p>
+                    {/* <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input> */}
+                </div>
+                <div className="adsr-slider">
+                    <VerticalSlider defaultValue={40} min={0} max={100} />
+                    <p className="vertical-slider-label">DECAY</p>
+                    {/* <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input> */}
+                </div>
+                <div className="adsr-slider">
+                    <VerticalSlider defaultValue={80} min={0} max={100} />
+                    <p className="vertical-slider-label">SUSTAIN</p>
+                    {/* <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input> */}
+                </div>
+                <div className="adsr-slider">
+                    <VerticalSlider defaultValue={30} min={0} max={100} />
+                    <p className="vertical-slider-label">RELEASE</p>
+                    {/* <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>      */}
+                </div>
+            </div>
         )
     }
 }
