@@ -74,51 +74,53 @@ export class Delay extends React.Component {
                         className="osc-switch"
                     />
                 </label>
-                <div className="fx-knobs">
-                    <div className="verb-decay-knob" onMouseDown={this.preventDrag}>
-                        <CircularSlider
-                            width={42}
-                            onChange={value => { console.log(value); }}
-                            min={-12}
-                            max={12}
-                            knobPosition="left"
-                            hideKnob={true}
-                            trackColor="#917FA2"
-                            progressColorFrom="#240046"
-                            progressColorTo="#240046"
-                            hideLabelValue={true}
-                        />
-                        <p className="knob-label">TIME</p>
-                    </div>
-                    <div className="verb-delay-knob" onMouseDown={this.preventDrag}>
-                        <CircularSlider
-                            width={42}
-                            onChange={value => { console.log(value); }}
-                            min={-12}
-                            max={12}
-                            knobPosition="left"
-                            hideKnob={true}
-                            trackColor="#917FA2"
-                            progressColorFrom="#240046"
-                            progressColorTo="#240046"
-                            hideLabelValue={true}
-                        />
-                        <p className="knob-label">FDBK</p>
-                    </div>
-                    <div className="verb-amt-knob" onMouseDown={this.preventDrag}>
-                        <CircularSlider
-                            width={42}
-                            onChange={value => { console.log(value); }}
-                            min={-12}
-                            max={12}
-                            knobPosition="left"
-                            hideKnob={true}
-                            trackColor="#917FA2"
-                            progressColorFrom="#240046"
-                            progressColorTo="#240046"
-                            hideLabelValue={true}
-                        />
-                        <p className="knob-label">AMOUNT</p>
+                <div className={fxParamsVisibility}>
+                    <div className="fx-knobs">
+                        <div className="verb-decay-knob" onMouseDown={this.preventDrag}>
+                            <CircularSlider
+                                width={42}
+                                onChange={value => { console.log(value); }}
+                                min={-12}
+                                max={12}
+                                knobPosition="left"
+                                hideKnob={true}
+                                trackColor="#917FA2"
+                                progressColorFrom="#240046"
+                                progressColorTo="#240046"
+                                hideLabelValue={true}
+                            />
+                            <p className="knob-label">TIME</p>
+                        </div>
+                        <div className="verb-delay-knob" onMouseDown={this.preventDrag}>
+                            <CircularSlider
+                                width={42}
+                                onChange={value => { console.log(value); }}
+                                min={-12}
+                                max={12}
+                                knobPosition="left"
+                                hideKnob={true}
+                                trackColor="#917FA2"
+                                progressColorFrom="#240046"
+                                progressColorTo="#240046"
+                                hideLabelValue={true}
+                            />
+                            <p className="knob-label">FDBK</p>
+                        </div>
+                        <div className="verb-amt-knob" onMouseDown={this.preventDrag}>
+                            <CircularSlider
+                                width={42}
+                                onChange={value => { console.log(value); }}
+                                min={-12}
+                                max={12}
+                                knobPosition="left"
+                                hideKnob={true}
+                                trackColor="#917FA2"
+                                progressColorFrom="#240046"
+                                progressColorTo="#240046"
+                                hideLabelValue={true}
+                            />
+                            <p className="knob-label">AMOUNT</p>
+                        </div>
                     </div>
                 </div>
                 {/* <div className={fxParamsVisibility}>
