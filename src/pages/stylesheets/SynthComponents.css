@@ -2,12 +2,13 @@
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
-    overflow: visible;
+    overflow: hidden;
     width: 1440px;
 }
 
 .osc-bank {
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     width: 100%;
     margin-bottom: 30px;
