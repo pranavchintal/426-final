@@ -36,34 +36,47 @@ export class TripleOsc extends React.Component {
     render() {
         return (
             <div onKeyDown={this.handleKeyPress} onKeyUp={this.handleKeyRelease} className="synth-body">
-                <OscillatorTest synth={this.synth.voice1} oscNum="1" mutedOnLoad={false} />
-                <OscillatorTest synth={this.synth.voice2} oscNum="2" mutedOnLoad={true} />
-                <OscillatorTest synth={this.synth.voice3} oscNum="3" mutedOnLoad={true} />
-                <div className="amp-container">
-                    <AmpEnv synth={this.synth.voices} />
+                <div className="oscillator-bank-text">
+                    <span>
+                        OSCILLATOR BANK
+                    </span>
                 </div>
-                <div className="fullwidth-break"></div>
-                <div className="filter-container">
-                    <FilterEnv synth={this.synth.voices} />
+                <div className="osc-bank">
+                    <OscillatorTest synth={this.synth.voice1} oscNum="1" mutedOnLoad={false} />
+                    <OscillatorTest synth={this.synth.voice2} oscNum="2" mutedOnLoad={true} />
+                    <OscillatorTest synth={this.synth.voice3} oscNum="3" mutedOnLoad={true} />
                 </div>
-
-                <div className="fx-container">
-                    <p>REVERB</p>
+                <div className="envelopes">
+                    <div className="amp-container-plus-label">
+                        <div className="amp-label">
+                            <span>
+                                AMPLITUDE ENVELOPE
+                            </span>
+                        </div>
+                        <AmpEnv synth={this.synth.voices} />
+                    </div>
+                    {/* <div className="fullwidth-break"></div> */}
+                    <div className="filter-container-plus-label">
+                        <div className="filter-label">
+                            <span>
+                                FILTER ENVELOPE
+                            </span>
+                        </div>
+                        <FilterEnv synth={this.synth.voices} />
+                    </div>
+                </div>
+                <div className="fx-label">
+                    <span>
+                        EFFECTS
+                    </span>
+                </div>
+                <div className="fx">
                     <Verb synth={this.synth} parentState={this.state} />
-                </div>
-                <div className="fx-container">
-                    <p>CHORUS</p>
                     <Chorus synth={this.synth} />
-                </div>
-                <div className="fx-container">
-                    <p>DELAY</p>
                     <Delay synth={this.synth} />
-                </div>
-                <div className="fx-container">
-                    <p>DIST</p>
                     <Dist synth={this.synth} />
+                    <Port synth={this.synth.voices} />
                 </div>
-                <Port synth={this.synth.voices} />
             </div>
         )
     }

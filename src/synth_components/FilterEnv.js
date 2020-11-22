@@ -74,7 +74,7 @@ export class FilterEnv extends React.Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='filter-container'>
                 <div className="filter-knobs">
                     <div className="filter-cutoff">
                         <CircularSlider
