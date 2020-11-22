@@ -57,7 +57,7 @@ export class Login extends React.Component {
                                     <button className="signin-button" onClick={
                                     handleSignUp
                                     }>SIGN UP</button>
-                                    <p>Have an account? <span onClick={() => sethasAccount(!hasAccount)}>Sign in</span></p>
+                                    <p className="no-account-text">Have an account? <span className="signin-prompt" onClick={() => sethasAccount(!hasAccount)}>Sign in</span></p>
                                 </>
                             )}
                     </div>

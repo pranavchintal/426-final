@@ -112,6 +112,18 @@ html {
     color: #440D77;
   }
 
+  .signin-button:hover {
+    background: #E6E6E6;
+    cursor: pointer;
+  }
+
+  .signin-button:focus {
+    outline: none;
+  }
+  .signin-button:active {
+    transform: scale(0.99);
+}
+
   .close-button {
     width: 16px;
     height: 16px;
@@ -120,3 +132,6 @@ html {
     margin-top: 10px;
   }
 
+  .errorMessage {
+    margin-top: 12px;
+  }
