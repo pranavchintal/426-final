@@ -1,13 +1,34 @@
 import React from 'react';
 import './stylesheets/Landing.css';
 import { ReactComponent as SynthIcons } from './icons/synth_icons.svg';
-import { ReactComponent as CreateSoundBiteButton } from './icons/create-button.svg';
-import { ReactComponent as SignupButton } from './icons/signup-button.svg';
 import { ReactComponent as Arrow } from './icons/arrow.svg';
+import { Login } from './Login';
 
 export class Landing extends React.Component {
 
+    state = { show: false };
+
+    showModal = () => {
+      this.setState({ show: true });
+    };
+  
+    hideModal = () => {
+      this.setState({ show: false });
+    };
+  
+
     render() {
+        const{
+            email, 
+            setEmail,
+            password,
+            setPassword,  
+            handleLogin, 
+            handleSignUp, 
+            hasAccount, 
+            sethasAccount, 
+            emailError, 
+            passwordError} = this.props;
         return (
             <div>
                 <div className="landing-header-all">
@@ -22,9 +43,21 @@ export class Landing extends React.Component {
                                 <a href="#creator-container" className="create-soundbite-button">
                                     CREATE A SOUNDBITE
                                 </a>
-                                <a href="#creator-container" className="signup-button">
-                                    LOG IN
-                                </a>
+                                <Login
+                                    email = {email}
+                                    setEmail = {setEmail}
+                                    password = {password}
+                                    setPassword = {setPassword}
+                                    handleLogin = {handleLogin}
+                                    handleSignUp = {handleSignUp}
+                                    hasAccount = {hasAccount}
+                                    sethasAccount = {sethasAccount}
+                                    emailError = {emailError}
+                                    passwordError = {passwordError} 
+                                    show={this.state.show} 
+                                    handleClose={this.hideModal}>
+                                </Login>  
+                                <button onClick = {this.showModal} className="signup-button"> LOG IN </button>
                             </div>
                         </div>
                     </div>
@@ -37,12 +70,6 @@ export class Landing extends React.Component {
                 <div className="landing-bottom">
                     <div className="svg-arrow">
                         <div className="svg-bounce">
-                            {/* <svg height="37" viewBox="0 0 24 37" width="24" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd" stroke="#5A189A" stroke-linecap="square" stroke-width="2.8" transform="translate(2 1)">
-                                    <path d="m2.82418338 30.8044364 13.57954542-.0568182.0568182-13.5795454" transform="matrix(.70710678 .70710678 -.70710678 .70710678 19.785027 .20723)"></path>
-                                    <path d="m9.54545455.45075758v30.65151512"></path>
-                                </g>
-                            </svg> */}
                             <div className="arrow">
                                 <div className="clickarea">
                                     <a href="#creator-container">

@@ -4,7 +4,7 @@
     background: #240046;
     display: flex;
     -webkit-box-pack: left;
-    justify-content: left;
+    justify-content:  space-between;
     flex-flow: row wrap;
     overflow: hidden;
     padding-left: 100px;
@@ -17,13 +17,14 @@
     color: white;
     font-weight: 600;
     margin-top: 45px;
+    height: 100px;
 }
 
 .text-controls {
     display: inline-block;
     margin-top: 92px;
     margin-left: auto;
-
+    height: 53px;
 }
 
 .text-controls a {
@@ -39,18 +40,14 @@
     height: 0;
 }
 
-.bottom-button {
-    margin-left: auto;
-    margin-right: auto;
+.top-text-labels {
+    display: inline-block;
+    width: 100%;
 }
 
-.bottom-button a {
-    display: inline-block;
-    text-decoration: none;
-    line-height: 20px;
-    padding: 15px 22px;
-    border-radius: 25px;
-    margin-top: 24px;
-    margin-left: 14px;
-    font-weight: 700;
+.top-text-labels span {
+    color: white;
+    font-weight: 600;
+    font-size: 26px;
+    margin-left: 400px;
 }
