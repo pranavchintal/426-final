@@ -167,24 +167,6 @@ export class OscillatorTest extends React.Component {
                         <Select options={options} styles={customStyles} defaultValue={options[0]} isSearchable={false} className="waveform-selector" />
                     </div>
                     <div className="pitch-knob" onMouseDown={this.preventDrag}>
-                        {/* <Knob
-                            size={42}
-                            angleOffset={220}
-                            angleRange={280}
-                            min={-100}
-                            max={100}
-                            className="styledKnob"
-                            onChange={value => console.log(value)}
-                        >
-                            <circle r="21" cx="21" cy="21" />
-                            <Pointer
-                                width={2}
-                                height={21}
-                                radius={0}
-                                type="rect"
-                                color="#fff"
-                            />
-                        </Knob> */}
                         <CircularSlider
                             width={42}
                             onChange={value => { console.log(value); }}

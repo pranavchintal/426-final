@@ -35,14 +35,6 @@ export class SynthBuilder extends React.Component {
                         </svg>
                     </a>
                 </div>
-                <div className="top-text-labels">
-                    <span className="oscillator-bank">
-                        OSCILLATOR BANK
-                    </span>
-                    <span className="amplifier-envelope">
-                        AMPLIFIER ENVELOPE
-                    </span>
-                </div>
                 <TripleOsc />
             </div>
         )

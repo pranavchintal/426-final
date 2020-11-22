@@ -64,7 +64,7 @@ export class AmpEnv extends React.Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='amp-container'>
                 <div className="adsr-slider">
                     <VerticalSlider defaultValue={10} min={0} max={100} />
                     <p className="vertical-slider-label">ATTACK</p>
