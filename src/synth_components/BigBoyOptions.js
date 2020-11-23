@@ -11,10 +11,25 @@ export class BigBoyOptions {
         this.voice1 = synth.voice1 === undefined ? Tone.MonoSynth.getDefaults() : synth.voice1.get();
         this.voice2 = synth.voice2 === undefined ? Tone.MonoSynth.getDefaults() : synth.voice2.get();
         this.voice3 = synth.voice3 === undefined ? Tone.MonoSynth.getDefaults() : synth.voice3.get();
+        this.isMute = synth.isMute === undefined ? [false, true, true] : synth.isMute;
+        this.pitch = synth.pitch === undefined ? [0, 0, 0] : synth.pitch;
+        this.detuneVal = synth.detuneVal === undefined ? [0, 0, 0] : synth.detuneVal;
 
-        this.voice1.volume = -10;
-        this.voice2.volume = -10;
-        this.voice3.volume = -10;
+        if(this.voice1.volume > -10) {
+            this.voice1.volume = -10;
+        }
+        if(this.voice2.volume > -10) {
+            this.voice2.volume = -10;
+        }
+        if(this.voice3.volume > -10) {
+            this.voice3.volume = -10;
+        }
+
+
+        this.voice1.filter.rolloff = -48;
+        this.voice2.filter.rolloff = -48;
+        this.voice3.filter.rolloff = -48;
+
+        console.log(Tone.Reverb.getDefaults());
     }
-
 }

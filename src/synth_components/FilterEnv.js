@@ -10,67 +10,92 @@ export class FilterEnv extends React.Component {
 
         this.state = {
             cutoff: this.props.synth[0].options.filter.frequency,
-            attack: this.props.synth[0].options.filterEnvelope.attack * 1000,
-            decay: this.props.synth[0].options.filterEnvelope.decay * 1000,
-            sustain: this.props.synth[0].options.filterEnvelope.sustain * 1000,
-            release: this.props.synth[0].options.filterEnvelope.release * 1000,
+            attack: (this.props.synth[0].get().filterEnvelope.attack * 1000),
+            decay: this.props.synth[0].get().filterEnvelope.decay * 1000,
+            sustain: this.props.synth[0].get().filterEnvelope.sustain * 100,
+            release: this.props.synth[0].get().filterEnvelope.release * 1000,
+            warp: this.props.synth[0].options.filter.Q
         }
 
-        this.adjust = this.adjust.bind(this);
+        console.log(this.state.warp);
+        console.log(this.state.cutoff);
+
+        this.adjustWarp = this.adjustWarp.bind(this);
+        this.adjustCutoff = this.adjustCutoff.bind(this);
+        this.adjustSliders = this.adjustSliders.bind(this);
     }
 
 
-    adjust(event) {
+    adjustWarp(value) {
 
-        switch (event.target.name) {
+
+        this.props.synth.forEach(elm => {
+            elm.set({
+                filter:
+                    {Q: value}
+            })
+        })
+    }
+
+
+    adjustCutoff(value) {
+
+
+        this.props.synth.forEach(elm => {
+            elm.set({
+                filterEnvelope: {
+                    baseFrequency: value
+                }
+            });
+        });                
+
+    }
+
+    adjustSliders(event, newValue) {
+
+        if(event.target.className === "js-focus-visible" || event.target.parentElement.childNodes[2] === undefined) {
+            return;
+        }
+
+        
+        const name = event.target.parentElement.childNodes[2].name;
+
+        switch (name) {
             case "attack":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        filterEnvelope:
-                            { attack: event.target.value / 1000 }
+                        envelope:
+                            { attack: newValue / 1000 }
                     });
                 });
-                this.setState({ attack: event.target.value });
                 break;
             case "decay":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        filterEnvelope:
-                            { decay: event.target.value / 1000 }
+                        envelope:
+                            { decay: newValue / 1000 }
                     });
                 });
-                this.setState({ decay: event.target.value });
                 break;
             case "sustain":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        filterEnvelope:
-                            { sustain: event.target.value / 1000 }
+                        envelope:
+                            { sustain: newValue / 100 }
                     });
                 });
-                this.setState({ sustain: event.target.value });
                 break;
             case "release":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        filterEnvelope:
-                            { release: event.target.value / 1000 }
+                        envelope:
+                            { release: newValue / 1000 }
                     });
                 });
-                this.setState({ release: event.target.value });
-                break;
-            case "cutoff":
-                this.props.synth.forEach(elm => {
-                    elm.set({
-                        filter: {
-                            frequency: event.target.value
-                        }
-                    });
-                });
-                this.setState({ cutoff: event.target.value });
                 break;
         }
     }
+
 
     render() {
         return (
@@ -79,7 +104,7 @@ export class FilterEnv extends React.Component {
                     <div className="filter-cutoff">
                         <CircularSlider
                             width={70}
-                            onChange={value => { console.log(value); }}
+                            onChange={this.adjustCutoff}
                             min={0}
                             max={20000}
                             knobPosition="bottom"
@@ -89,15 +114,16 @@ export class FilterEnv extends React.Component {
                             progressColorTo="#D3CCDA"
                             progressSize="20px"
                             hideLabelValue={true}
+                            dataIndex={this.state.cutoff}
                         />
                         <p className="filter-knob-label">CUTOFF</p>
                     </div>
                     <div className="filter-warp">
                         <CircularSlider
                             width={70}
-                            onChange={value => { console.log(value); }}
-                            min={0}
-                            max={20000}
+                            onChange={this.adjustWarp}
+                            min={1}
+                            max={5}
                             knobPosition="bottom"
                             hideKnob={true}
                             trackColor="#654D7E"
@@ -105,30 +131,26 @@ export class FilterEnv extends React.Component {
                             progressColorTo="#D3CCDA"
                             progressSize="20px"
                             hideLabelValue={true}
+                            dataIndex={this.state.warp}
                         />
                         <p className="filter-knob-label">WARP</p>
                     </div>
                 </div>
-                {/* <input onChange={this.adjust} name='cutoff' type='range' min='0' max='20000' step='1' value={this.state.cutoff}></input> */}
                 <div className="filter-slider">
-                    <VerticalSlider defaultValue={10} min={0} max={100} />
+                    <VerticalSlider name="attack" defaultValue={this.state.attack} min={0} max={7500} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">ATTACK</p>
-                    {/* <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input> */}
                 </div>
-                <div className="filter-slider">
-                    <VerticalSlider defaultValue={40} min={0} max={100} />
+                <div className="adsr-slider">
+                    <VerticalSlider name="decay" defaultValue={this.state.decay} min={0} max={11000} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">DECAY</p>
-                    {/* <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input> */}
                 </div>
-                <div className="filter-slider">
-                    <VerticalSlider defaultValue={80} min={0} max={100} />
+                <div className="adsr-slider">
+                    <VerticalSlider name="sustain" defaultValue={this.state.sustain} min={0} max={100} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">SUSTAIN</p>
-                    {/* <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input> */}
                 </div>
-                <div className="filter-slider">
-                    <VerticalSlider defaultValue={30} min={0} max={100} />
+                <div className="adsr-slider">
+                    <VerticalSlider name="release" defaultValue={this.state.release} min={0} max={11000} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">RELEASE</p>
-                    {/* <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>       */}
                 </div>
             </div>
         )

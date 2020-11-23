@@ -14,7 +14,8 @@ export class Dist extends React.Component {
             isOn: this.props.synth.chain.includes(this.props.synth.dist)
         };
 
-        this.adjust = this.adjust.bind(this);
+        this.adjust1 = this.adjust1.bind(this);
+        this.adjust2 = this.adjust2.bind(this);
         this.mute = this.mute.bind(this);
     }
 
@@ -22,6 +23,16 @@ export class Dist extends React.Component {
         this.props.synth.toggleChain(this.props.synth.dist);
         this.setState({ isOn: !this.state.isOn });
     }
+
+    adjust1(value) {
+        this.props.synth.dist.set({ distortion: value / 100 });
+    }
+    
+    adjust2(value) {
+        this.props.synth.dist.set({ wet: value / 100 });
+
+    }
+
 
     onOrOff() {
         if (this.state.isOn) {
@@ -31,24 +42,11 @@ export class Dist extends React.Component {
         }
     }
 
-    adjust(event) {
-        switch (event.target.name) {
-            case "distortion":
-                this.props.synth.dist.set({ distortion: event.target.value / 100 });
-                this.setState({ distortion: event.target.value });
-                break;
-            case "wet":
-                this.props.synth.dist.set({ wet: event.target.value / 100 });
-                this.setState({ wet: event.target.value });
-                break;
-        }
-    }
-
     render() {
 
-        let fxContainerClass = !this.state.isOn ? "fx-container-active" : "fx-container-inactive";
-        let fxLabelClass = !this.state.isOn ? "osc-label-active" : "osc-label-inactive";
-        let fxParamsVisibility = !this.state.isOn ? "osc-params-visible" : "osc-params-invisible";
+        let fxContainerClass = this.state.isOn ? "fx-container-active" : "fx-container-inactive";
+        let fxLabelClass = this.state.isOn ? "osc-label-active" : "osc-label-inactive";
+        let fxParamsVisibility = this.state.isOn ? "osc-params-visible" : "osc-params-invisible";
 
         return (
             <div className={fxContainerClass}>
@@ -56,7 +54,7 @@ export class Dist extends React.Component {
                 <label>
                     <Switch
                         onChange={this.mute}
-                        checked={!this.state.isOn}
+                        checked={this.state.isOn}
                         offColor="#D3CCDA"
                         onColor="#917FA2"
                         onHandleColor="#240046"
@@ -74,30 +72,32 @@ export class Dist extends React.Component {
                         <div className="dist-gain-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust1}
+                                min={0}
+                                max={100}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.distortion}
                             />
                             <p className="knob-label">GAIN</p>
                         </div>
                         <div className="dist-amt-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust2}
+                                min={0}
+                                max={100}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.wet}
                             />
                             <p className="knob-label">AMOUNT</p>
                         </div>

@@ -4,18 +4,27 @@ export class BigBoySynth {
 
     constructor(synthOptions) {
 
+
         this.chorus = new Tone.Chorus(synthOptions.chorus);
         this.verb = new Tone.Reverb(synthOptions.reverb);
         this.delay = new Tone.FeedbackDelay(synthOptions.delay);
         this.dist = new Tone.Distortion(synthOptions.distortion);
         this.chain = [null, null, null, null];
         this.chainOrder = [this.chorus, this.verb, this.delay, this.dist]
+        this.isMute = synthOptions.isMute;
+        this.pitch = synthOptions.pitch;
+        this.detuneVal = synthOptions.detuneVal;
 
         this.voice1 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice1).chain(...this.noNull(this.chain), Tone.Destination);
         this.voice2 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice2).chain(...this.noNull(this.chain), Tone.Destination);
         this.voice3 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice3).chain(...this.noNull(this.chain), Tone.Destination);
+        console.log(this.voice1);
 
         this.voices = [this.voice1, this.voice2, this.voice3];
+
+        this.voices.forEach(elm => {
+            elm.maxPolyphony = 32;
+        })
 
         this.toggleChain = this.toggleChain.bind(this);
     }
@@ -27,21 +36,40 @@ export class BigBoySynth {
     playNote(event) {
         if(!event.repeat && BigBoySynth.keyNoteMap[event.keyCode] !== undefined) {
 
-            this.voices.forEach(elm => elm.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]));
+            for(let i = 0; i < this.voices.length; i++) {
+                if(!this.isMute[i]) {
+                    this.voices[i].triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]);
+                }
+            }
 
-            // this.voice1.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]);
-            // this.voice2.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]);
+            //this.voices.forEach(elm => elm.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]));
+
+            //this.voice1.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]);
+            //this.voice2.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]);
             // this.voice3.triggerAttack(BigBoySynth.keyNoteMap[event.keyCode]);
         }
     }
 
     releaseNote(event) {
 
-        this.voices.forEach(elm => elm.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]));
+        let elapsedSinceLastReleased = Date.now() - this.lastReleased;
 
-        // this.voice1.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
-        // this.voice2.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
-        // this.voice3.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
+        if(elapsedSinceLastReleased < 200) {
+            this.voices.forEach(elm => elm.releaseAll());
+        } else {
+            this.voices.forEach(elm => elm.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]));
+        }
+
+        this.lastReleased = Date.now();
+
+        //this.voice1.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
+        //this.voice2.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
+        //this.voice3.triggerRelease(BigBoySynth.keyNoteMap[event.keyCode]);
+    }
+
+    toggleMute(num) {
+        this.isMute[num - 1] = !this.isMute[num - 1];
+        console.log(this.isMute);
     }
 
     toggleChain(effect) {
@@ -55,15 +83,8 @@ export class BigBoySynth {
         console.log(this.chain);
 
         this.voices.forEach(elm => elm.chain(...this.noNull(this.chain), Tone.Destination));
-        
-        // this.voice1.chain(...this.noNull(this.chain), Tone.Destination);
-        // this.voice2.chain(...this.noNull(this.chain), Tone.Destination);
-        // this.voice3.chain(...this.noNull(this.chain), Tone.Destination);
-
-        //console.log(this.chain);
 
     }
-
 
 }
 

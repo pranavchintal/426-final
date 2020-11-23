@@ -11,35 +11,52 @@ export class Verb extends React.Component {
         this.state = {
             decay: this.props.synth.verb.decay * 1000,
             preDelay: this.props.synth.verb.preDelay * 1000,
-            wet: this.props.synth.verb.wet.value * 100,
+            wet: this.props.synth.verb.get().wet * 100,
             isOn: this.props.synth.chain.includes(this.props.synth.verb),
         };
 
 
-        this.adjust = this.adjust.bind(this);
+
+        this.adjust1 = this.adjust1.bind(this);
+        this.adjust2 = this.adjust2.bind(this);
+        this.adjust3 = this.adjust3.bind(this);
         this.mute = this.mute.bind(this);
     }
 
 
-    adjust(event) {
-        switch (event.target.name) {
-            case "decay":
-                //console.log(event.target.value);
-                this.props.synth.verb.set({ decay: event.target.value / 1000 });
-                this.setState({ decay: event.target.value });
-                break;
-            case "predelay":
-                this.props.synth.verb.set({ preDelay: event.target.value / 1000 });
-                this.setState({ preDelay: event.target.value });
-                break;
-            case "wet":
-                this.props.synth.verb.set({ wet: event.target.value / 100 });
-                this.setState({ wet: event.target.value });
-                break;
-            case "mute": {
-            }
-        }
+    adjust1(value) {
+        this.props.synth.verb.set({ decay: value / 1000 });
     }
+    
+    adjust2(value) {
+        this.props.synth.verb.set({ preDelay: value / 1000 });
+
+    }
+
+    adjust3(value) {
+        this.props.synth.verb.set({ wet: value / 100 });
+    }
+
+
+    // adjust(event) {
+    //     switch (event.target.name) {
+    //         case "decay":
+    //             //console.log(event.target.value);
+    //             this.props.synth.verb.set({ decay: event.target.value / 1000 });
+    //             this.setState({ decay: event.target.value });
+    //             break;
+    //         case "predelay":
+    //             this.props.synth.verb.set({ preDelay: event.target.value / 1000 });
+    //             this.setState({ preDelay: event.target.value });
+    //             break;
+    //         case "wet":
+    //             this.props.synth.verb.set({ wet: event.target.value / 100 });
+    //             this.setState({ wet: event.target.value });
+    //             break;
+    //         case "mute": {
+    //         }
+    //     }
+    // }
     mute() {
         this.props.synth.toggleChain(this.props.synth.verb);
         this.setState({ isOn: !this.state.isOn });
@@ -55,9 +72,9 @@ export class Verb extends React.Component {
 
     render() {
 
-        let fxContainerClass = !this.state.isOn ? "fx-container-active" : "fx-container-inactive";
-        let fxLabelClass = !this.state.isOn ? "osc-label-active" : "osc-label-inactive";
-        let fxParamsVisibility = !this.state.isOn ? "osc-params-visible" : "osc-params-invisible";
+        let fxContainerClass = this.state.isOn ? "fx-container-active" : "fx-container-inactive";
+        let fxLabelClass = this.state.isOn ? "osc-label-active" : "osc-label-inactive";
+        let fxParamsVisibility = this.state.isOn ? "osc-params-visible" : "osc-params-invisible";
 
         return (
             <div className={fxContainerClass}>
@@ -65,7 +82,7 @@ export class Verb extends React.Component {
                 <label>
                     <Switch
                         onChange={this.mute}
-                        checked={!this.state.isOn}
+                        checked={this.state.isOn}
                         offColor="#D3CCDA"
                         onColor="#917FA2"
                         onHandleColor="#240046"
@@ -83,45 +100,48 @@ export class Verb extends React.Component {
                         <div className="verb-decay-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust1}
+                                min={0}
+                                max={8000}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.decay}
                             />
                             <p className="knob-label">DECAY</p>
                         </div>
                         <div className="verb-delay-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust2}
+                                min={0}
+                                max={500}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.preDelay}
                             />
                             <p className="knob-label">DELAY</p>
                         </div>
                         <div className="verb-amt-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust3}
+                                min={0}
+                                max={100}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.wet}
                             />
                             <p className="knob-label">AMOUNT</p>
                         </div>

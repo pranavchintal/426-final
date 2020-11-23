@@ -30,6 +30,14 @@ export class TripleOsc extends React.Component {
 
 
     handleKeyPress(event) {
+
+        if(event.key === '1') {
+
+            console.log(JSON.stringify(this.synth));
+        }
+        // event.persist();
+        // console.log(event);
+
         this.synth.playNote(event);
     }
 
@@ -42,9 +50,10 @@ export class TripleOsc extends React.Component {
                     </span>
                 </div>
                 <div className="osc-bank">
-                    <OscillatorTest synth={this.synth.voice1} oscNum="1" mutedOnLoad={false} />
-                    <OscillatorTest synth={this.synth.voice2} oscNum="2" mutedOnLoad={true} />
-                    <OscillatorTest synth={this.synth.voice3} oscNum="3" mutedOnLoad={true} />
+                    <OscillatorTest synth={this.synth.voice1} oscNum="1" isMute={this.synth.isMute[0]} wholeSynth={this.synth}/>
+                    <OscillatorTest synth={this.synth.voice2} oscNum="2" isMute={this.synth.isMute[1]} wholeSynth={this.synth}/>
+                    <OscillatorTest synth={this.synth.voice3} oscNum="3" isMute={this.synth.isMute[2]} wholeSynth={this.synth}/>
+
                 </div>
                 <div className="envelopes">
                     <div className="amp-container-plus-label">
