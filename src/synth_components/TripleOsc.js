@@ -71,10 +71,10 @@ export class TripleOsc extends React.Component {
                     </span>
                 </div>
                 <div className="fx">
-                    <Verb synth={this.synth} parentState={this.state} />
-                    <Chorus synth={this.synth} />
-                    <Delay synth={this.synth} />
                     <Dist synth={this.synth} />
+                    <Delay synth={this.synth} />
+                    <Chorus synth={this.synth} />
+                    <Verb synth={this.synth} parentState={this.state} />
                     <Port synth={this.synth.voices} />
                 </div>
             </div>
