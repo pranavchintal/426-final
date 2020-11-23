@@ -3,8 +3,12 @@ import React from 'react';
 import { TripleOsc } from "../synth_components/TripleOsc.js";
 import { PatchBrowser } from './PatchBrowser.js';
 import fire from '../fire';
-
 import './stylesheets/SynthBuilder.css';
+import { BigBoySynth } from "../synth_components/BigBoySynth.js";
+import { BigBoyOptions } from "../synth_components/BigBoyOptions.js";
+//import fire from '../fire';
+
+
 
 export class SynthBuilder extends React.Component {
 
@@ -13,8 +17,13 @@ export class SynthBuilder extends React.Component {
         this.state = { 
             show: false,
             showLogout: this.props.isSignedIn
+            
+
         };
 
+
+
+        this.synth = new BigBoySynth(new BigBoyOptions({}));
         this.handleLogout = this.props.handleLogout;
 
         fire.auth().onAuthStateChanged(() => {
@@ -24,6 +33,65 @@ export class SynthBuilder extends React.Component {
                 this.state.showLogout = true;
             }
         });
+
+        this.savePatch = this.savePatch.bind(this);
+        this.loadPatch = this.loadPatch.bind(this);
+    }
+
+    async loadPatch() {
+
+        console.log("loading patch");
+        let docRef = fire.firestore().collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
+
+        // docRef.get().then(function(doc) {
+        //     if (doc.exists) {
+        //         console.log("Document data:", doc.data().testName);
+        //     } else {
+        //         // doc.data() will be undefined in this case
+        //         console.log("No such document!");
+        //     }
+        // }).catch(function(error) {
+        //     console.log("Error getting document:", error);
+        // });
+        let otherRef = await docRef.get();
+
+        let final = JSON.parse(otherRef.data().testName);
+
+        this.synth = new BigBoySynth(final);
+
+        console.log(this.synth);
+    }
+
+    savePatch() {
+
+        const replacerFunc = () => {
+            const visited = new WeakSet();
+            return (key, value) => {
+              if (typeof value === "object" && value !== null) {
+                if (visited.has(value)) {
+                  return;
+                }
+                visited.add(value);
+              }
+              return value;
+            };
+          };
+
+        let newOpt = new BigBoyOptions(this.synth);
+
+        let jsonOpt = JSON.stringify(newOpt, replacerFunc());
+        
+        var db = fire.firestore();
+      
+          console.log("save synth");
+      
+      // Create an initial document to update.
+      var dataBaseEntry = db.collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
+      dataBaseEntry.set({
+          testName: jsonOpt
+      });
+        
+
     }
 
     showBrowser = () => {
@@ -50,24 +118,24 @@ export class SynthBuilder extends React.Component {
                         </svg>
                     </a>
                     <a href="#creator-container">
-                        LOAD PATCH
+                        <a onClick={this.loadPatch}>
+                            LOAD PATCH
+                        </a>
                     </a>
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
                     <a href="#creator-container">
+                        <a onClick={this.savePatch}>
                         SAVE
-                        <svg id="ic_expand_more" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" style={{ marginLeft: '3px' }}>
-                            <rect id="rectangle" width="24" height="24" fill="none" />
-                            <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
-                        </svg>
+                    </a>
                     </a>
                     <a href="#creator-container" className={this.state.showLogout ? "display-initial" : "display-none"} onClick={this.handleLogout}>
                         LOGOUT
                     </a>
                 </div>
                 <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} />
-                <TripleOsc />
+                <TripleOsc synth={this.synth}/>
             </div>
         )
     }

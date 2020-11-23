@@ -17,6 +17,45 @@ function App() {
   var db = fire.firestore();
   let tempEmail = "";
 
+
+// Create an initial document to update.
+// var frankDocRef = db.collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
+// frankDocRef.set({
+//     name: "Frank",
+//     favorites: { food: "Pizza", color: "Blue", subject: "recess" },
+//     age: 12
+// });
+
+// // To update age and favorite color:
+// frankDocRef.update({
+//     "age": 13,
+//     "favorites.color": "Red"
+// })
+// .then(function() {
+//     console.log("Document successfully updated!");
+// });
+
+  //var docRef = db.collection("users").doc().set({userPatches: []});
+
+  //var docRef = db.collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
+
+  // docRef.update({
+  //   userPatches: fire.firestore.FieldValue.arrayUnion("greater_virginia")
+  // });
+  // docRef.get().then(function(doc) {
+  //     if (doc.exists) {
+  //       console.log(doc.data());
+  //       //doc.update({userPatches: db.FieldValue.arrayUnion("test")      });
+  //       //console.log("Document data:", doc.data().userPatches.push("hi"));
+
+  //     } else {
+  //         // doc.data() will be undefined in this case
+  //         console.log("No such document!");
+  //     }
+  // }).catch(function(error) {
+  //     console.log("Error getting document:", error);
+  // });
+
   const clearInputs = () => {
     setEmail('')
     setPassword('')
@@ -70,6 +109,7 @@ function App() {
     fire.auth().onAuthStateChanged(newUser => {
       if (newUser) {
         var docRef = db.collection("users").doc(newUser.uid);
+        
         setUser(newUser);
         sethasAccount(true);
         docRef.get().then(docSnapshot => {
