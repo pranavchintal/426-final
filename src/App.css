@@ -8,15 +8,19 @@
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .display-block {
-    display: block;
+  display: block;
 }
   
 .display-none {
-    display: none;
+  display: none !important;
+}
+
+.display-initial {
+  display: initial !important;
 }
 
 .modal {

@@ -1,37 +1,52 @@
 import React from 'react';
-import './stylesheets/Landing.css';
 import { ReactComponent as SynthIcons } from './icons/synth_icons.svg';
 import { ReactComponent as Arrow } from './icons/arrow.svg';
 import { Login } from './Login';
+import fire from '../fire';
+
+import './stylesheets/Landing.css';
 
 export class Landing extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { show: false };
+        this.state = {
+            show: false,
+            showLogin: this.props.isSignedIn
+        };
+
+        fire.auth().onAuthStateChanged(() => {
+            this.hideModal()
+            if (this.props.isSignedIn) {
+                this.setState({ showLogin: false })
+            } else {
+                this.setState({ showLogin: true })
+            }
+        });
     }
 
     showModal = () => {
-      this.setState({ show: true });
+        this.setState({ show: true });
     };
-  
+
     hideModal = () => {
-      this.setState({ show: false });
+        this.setState({ show: false });
     };
-  
+
 
     render() {
-        const{
-            email, 
+
+        const {
+            email,
             setEmail,
             password,
-            setPassword,  
-            handleLogin, 
-            handleSignUp, 
-            hasAccount, 
-            sethasAccount, 
-            emailError, 
-            passwordError} = this.props;
+            setPassword,
+            handleLogin,
+            handleSignUp,
+            hasAccount,
+            sethasAccount,
+            emailError,
+            passwordError } = this.props;
         return (
             <div>
                 <div className="landing-header-all">
@@ -47,20 +62,20 @@ export class Landing extends React.Component {
                                     CREATE A SOUNDBITE
                                 </a>
                                 <Login
-                                    email = {email}
-                                    setEmail = {setEmail}
-                                    password = {password}
-                                    setPassword = {setPassword}
-                                    handleLogin = {handleLogin}
-                                    handleSignUp = {handleSignUp}
-                                    hasAccount = {hasAccount}
-                                    sethasAccount = {sethasAccount}
-                                    emailError = {emailError}
-                                    passwordError = {passwordError} 
-                                    show={this.state.show} 
+                                    email={email}
+                                    setEmail={setEmail}
+                                    password={password}
+                                    setPassword={setPassword}
+                                    handleLogin={handleLogin}
+                                    handleSignUp={handleSignUp}
+                                    hasAccount={hasAccount}
+                                    sethasAccount={sethasAccount}
+                                    emailError={emailError}
+                                    passwordError={passwordError}
+                                    show={this.state.show}
                                     handleClose={this.hideModal}>
-                                </Login>  
-                                <button onClick = {this.showModal} className="signup-button"> LOG IN </button>
+                                </Login>
+                                <button onClick={this.showModal} className={`signup-button ${this.state.showLogin ? "display-initial" : "display-none"}`}> LOG IN </button>
                             </div>
                         </div>
                     </div>
@@ -76,7 +91,7 @@ export class Landing extends React.Component {
                             <div className="arrow">
                                 <div className="clickarea">
                                     <a href="#creator-container">
-                                    <Arrow />
+                                        <Arrow />
                                     </a>
                                 </div>
                             </div>

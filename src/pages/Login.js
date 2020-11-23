@@ -3,22 +3,6 @@ import closeIcon from './icons/noun_Close_3610311.png'
 
 export class Login extends React.Component {
     
-    constructor() {
-        super()
-
-        this.onSignInClick = this.onSignInClick.bind(this);
-        this.onSignUpClick = this.onSignUpClick.bind(this);
-    }
-
-    onSignInClick() {
-        this.props.handleLogin();
-    }
-
-    onSignUpClick() {
-        this.props.handleSignUp();
-
-    }
-
     render(){
         const{
             email, 
@@ -61,7 +45,7 @@ export class Login extends React.Component {
                             (
                                 <>
                                     <button className="signin-button" onClick={
-                                        this.onSignInClick}>
+                                        handleLogin}>
                                          SIGN IN</button>
                                         <p className="no-account-text">Don't have an account?  <span className="signin-prompt" onClick={() => 
                                         sethasAccount(!hasAccount)
@@ -71,7 +55,7 @@ export class Login extends React.Component {
                             (
                                 <>
                                     <button className="signin-button" onClick={
-                                    this.onSignUpClick
+                                    handleSignUp
                                     }>SIGN UP</button>
                                     <p className="no-account-text">Have an account? <span className="signin-prompt" onClick={() => sethasAccount(!hasAccount)}>Sign in</span></p>
                                 </>

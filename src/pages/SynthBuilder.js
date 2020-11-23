@@ -2,13 +2,29 @@
 import React from 'react';
 import { TripleOsc } from "../synth_components/TripleOsc.js";
 import { PatchBrowser } from './PatchBrowser.js';
-
+import fire from '../fire';
 
 import './stylesheets/SynthBuilder.css';
 
 export class SynthBuilder extends React.Component {
 
-    state = { show: false };
+    constructor(props) {
+        super(props);
+        this.state = { 
+            show: false,
+            showLogout: this.props.isSignedIn
+        };
+
+        this.handleLogout = this.props.handleLogout;
+
+        fire.auth().onAuthStateChanged(() => {
+            if (this.props.isSignedIn) {
+                this.state.showLogout = false;
+            } else {
+                this.state.showLogout = true;
+            }
+        });
+    }
 
     showBrowser = () => {
       this.setState({ show: true });
@@ -46,12 +62,8 @@ export class SynthBuilder extends React.Component {
                             <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#creator-container">
-                        OTHER OPTIONS
-                        <svg id="ic_expand_more" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                            <rect id="rectangle" width="24" height="24" fill="none" />
-                            <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
-                        </svg>
+                    <a href="#creator-container" className={this.state.showLogout ? "display-initial" : "display-none"} onClick={this.handleLogout}>
+                        LOGOUT
                     </a>
                 </div>
                 <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} />

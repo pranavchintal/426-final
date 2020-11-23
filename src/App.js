@@ -50,23 +50,24 @@ function App() {
       .catch(error => {
         switch (error.code) {
           case 'auth/email-already-in-use':
+            setEmailError("A user already exists with this email address.")
+            break;
           case 'auth/invalid-email':
-            setEmailError(error.message)
+            setEmailError("Invalid email.")
             break;
           case 'auth/weak-password':
-            setPasswordError(error.message)
+            setPasswordError("Password must be at least 6 characters long.")
             break;
         }
       })
   };
-  
+
   const handleLogout = () => {
     fire.auth().signOut();
   };
 
   const authListener = () => {
     fire.auth().onAuthStateChanged(newUser => {
-      console.log("auth state called");
       if (newUser) {
         var docRef = db.collection("users").doc(newUser.uid);
         setUser(newUser);
@@ -110,8 +111,9 @@ function App() {
         hasAccount={hasAccount}
         sethasAccount={sethasAccount}
         emailError={emailError}
-        passwordError={passwordError} />
-      <SynthBuilder />
+        passwordError={passwordError}
+        isSignedIn={user} />
+      <SynthBuilder handleLogout={handleLogout} isSignedIn={user} />
     </div>
   );
 }
