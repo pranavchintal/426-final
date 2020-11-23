@@ -48,7 +48,6 @@ html {
   max-width: 540px;
   height: 540px;
   display: flex;
-  overflow: visible;
   flex-direction: column;
   justify-content: center;
   background: radial-gradient(
