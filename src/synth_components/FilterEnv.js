@@ -2,6 +2,7 @@
 import React from "react";
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { VerticalSlider } from '../pages/small_components/VerticalSlider';
+import { ReactComponent as DragHandle } from '../pages/icons/svg_circular_knob_handle.svg'
 
 export class FilterEnv extends React.Component {
 
@@ -32,7 +33,7 @@ export class FilterEnv extends React.Component {
         this.props.synth.forEach(elm => {
             elm.set({
                 filter:
-                    {Q: value}
+                    { Q: value }
             })
         })
     }
@@ -47,17 +48,17 @@ export class FilterEnv extends React.Component {
                     baseFrequency: value
                 }
             });
-        });                
+        });
 
     }
 
     adjustSliders(event, newValue) {
 
-        if(event.target.className === "js-focus-visible" || event.target.parentElement.childNodes[2] === undefined) {
+        if (event.target.className === "js-focus-visible" || event.target.parentElement.childNodes[2] === undefined) {
             return;
         }
 
-        
+
         const name = event.target.parentElement.childNodes[2].name;
 
         switch (name) {
@@ -108,14 +109,16 @@ export class FilterEnv extends React.Component {
                             min={0}
                             max={20000}
                             knobPosition="bottom"
-                            hideKnob={true}
+                            knobColor="#FFFFFF"
+                            knobSize={24}
                             trackColor="#654D7E"
-                            progressColorFrom="#D3CCDA"
+                            progressColorFrom="#ffffff"
                             progressColorTo="#D3CCDA"
-                            progressSize="20px"
+                            progressSize="10px"
                             hideLabelValue={true}
                             dataIndex={this.state.cutoff}
-                        />
+                        >
+                        </CircularSlider>
                         <p className="filter-knob-label">CUTOFF</p>
                     </div>
                     <div className="filter-warp">
@@ -125,11 +128,12 @@ export class FilterEnv extends React.Component {
                             min={1}
                             max={5}
                             knobPosition="bottom"
-                            hideKnob={true}
+                            knobColor="#FFFFFF"
+                            knobSize={24}
                             trackColor="#654D7E"
-                            progressColorFrom="#D3CCDA"
+                            progressColorFrom="#ffffff"
                             progressColorTo="#D3CCDA"
-                            progressSize="20px"
+                            progressSize="10px"
                             hideLabelValue={true}
                             dataIndex={this.state.warp}
                         />
@@ -137,19 +141,19 @@ export class FilterEnv extends React.Component {
                     </div>
                 </div>
                 <div className="filter-slider">
-                    <VerticalSlider name="attack" defaultValue={this.state.attack} min={0} max={7500} onChange={this.adjustSliders}/>
+                    <VerticalSlider name="attack" defaultValue={this.state.attack} min={0} max={7500} onChange={this.adjustSliders} />
                     <p className="vertical-slider-label">ATTACK</p>
                 </div>
                 <div className="adsr-slider">
-                    <VerticalSlider name="decay" defaultValue={this.state.decay} min={0} max={11000} onChange={this.adjustSliders}/>
+                    <VerticalSlider name="decay" defaultValue={this.state.decay} min={0} max={11000} onChange={this.adjustSliders} />
                     <p className="vertical-slider-label">DECAY</p>
                 </div>
                 <div className="adsr-slider">
-                    <VerticalSlider name="sustain" defaultValue={this.state.sustain} min={0} max={100} onChange={this.adjustSliders}/>
+                    <VerticalSlider name="sustain" defaultValue={this.state.sustain} min={0} max={100} onChange={this.adjustSliders} />
                     <p className="vertical-slider-label">SUSTAIN</p>
                 </div>
                 <div className="adsr-slider">
-                    <VerticalSlider name="release" defaultValue={this.state.release} min={0} max={11000} onChange={this.adjustSliders}/>
+                    <VerticalSlider name="release" defaultValue={this.state.release} min={0} max={11000} onChange={this.adjustSliders} />
                     <p className="vertical-slider-label">RELEASE</p>
                 </div>
             </div>
