@@ -15,13 +15,29 @@ export class Chorus extends React.Component {
             isOn: this.props.synth.chain.includes(this.props.synth.chorus)
         };
 
-        this.adjust = this.adjust.bind(this);
+        this.adjust1 = this.adjust1.bind(this);
+        this.adjust2 = this.adjust2.bind(this);
+        this.adjust3 = this.adjust3.bind(this);
+
         this.mute = this.mute.bind(this);
     }
 
     mute() {
         this.props.synth.toggleChain(this.props.synth.chorus);
         this.setState({ isOn: !this.state.isOn });
+    }
+
+    adjust1(value) {
+        this.props.synth.chorus.set({ frequency: value });
+    }
+    
+    adjust2(value) {
+        this.props.synth.chorus.set({ delayTime: value / 1000 });
+
+    }
+
+    adjust3(value) {
+        this.props.synth.chorus.set({ depth: value / 100 });
     }
 
     onOrOff() {
@@ -32,28 +48,28 @@ export class Chorus extends React.Component {
         }
     }
 
-    adjust(event) {
-        switch (event.target.name) {
-            case "frequency":
-                this.props.synth.chorus.set({ frequency: event.target.value });
-                this.setState({ frequency: event.target.value });
-                break;
-            case "delayTime":
-                this.props.synth.chorus.set({ delayTime: event.target.value / 1000 });
-                this.setState({ delayTime: event.target.value });
-                break;
-            case "depth":
-                this.props.synth.chorus.set({ depth: event.target.value / 100 });
-                this.setState({ depth: event.target.value });
-                break;
-        }
-    }
+    // adjust(event) {
+    //     switch (event.target.name) {
+    //         case "frequency":
+    //             this.props.synth.chorus.set({ frequency: event.target.value });
+    //             this.setState({ frequency: event.target.value });
+    //             break;
+    //         case "delayTime":
+    //             this.props.synth.chorus.set({ delayTime: event.target.value / 1000 });
+    //             this.setState({ delayTime: event.target.value });
+    //             break;
+    //         case "depth":
+    //             this.props.synth.chorus.set({ depth: event.target.value / 100 });
+    //             this.setState({ depth: event.target.value });
+    //             break;
+    //     }
+    // }
 
     render() {
 
-        let fxContainerClass = !this.state.isOn ? "fx-container-active" : "fx-container-inactive";
-        let fxLabelClass = !this.state.isOn ? "osc-label-active" : "osc-label-inactive";
-        let fxParamsVisibility = !this.state.isOn ? "osc-params-visible" : "osc-params-invisible";
+        let fxContainerClass = this.state.isOn ? "fx-container-active" : "fx-container-inactive";
+        let fxLabelClass = this.state.isOn ? "osc-label-active" : "osc-label-inactive";
+        let fxParamsVisibility = this.state.isOn ? "osc-params-visible" : "osc-params-invisible";
 
         return (
             <div className={fxContainerClass}>
@@ -61,7 +77,7 @@ export class Chorus extends React.Component {
                 <label>
                     <Switch
                         onChange={this.mute}
-                        checked={!this.state.isOn}
+                        checked={this.state.isOn}
                         offColor="#D3CCDA"
                         onColor="#917FA2"
                         onHandleColor="#240046"
@@ -79,45 +95,48 @@ export class Chorus extends React.Component {
                         <div className="verb-decay-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust1}
+                                min={1}
+                                max={10}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.freqency}
                             />
                             <p className="knob-label">RATE</p>
                         </div>
                         <div className="verb-delay-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust2}
+                                min={1}
+                                max={30}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.delayTime}
                             />
                             <p className="knob-label">DELAY</p>
                         </div>
                         <div className="verb-amt-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
-                                onChange={value => { console.log(value); }}
-                                min={-12}
-                                max={12}
+                                onChange={this.adjust3}
+                                min={0}
+                                max={100}
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+                                dataIndex={this.state.depth}
                             />
                             <p className="knob-label">DEPTH</p>
                         </div>

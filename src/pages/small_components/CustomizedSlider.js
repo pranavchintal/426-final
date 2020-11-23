@@ -31,7 +31,7 @@ export class CustomizedSlider extends React.Component {
     })(Slider);
 
     return (
-      <PrettoSlider defaultValue={this.props.defaultValue} min={this.props.min} max={this.props.max} className={this.props.className} orientation={this.props.orientation}/>)
+      <PrettoSlider defaultValue={this.props.defaultValue} min={this.props.min} max={this.props.max} className={this.props.className} orientation={this.props.orientation} onChange={this.props.onChange} name={this.props.name}  />)
   }
 
 }

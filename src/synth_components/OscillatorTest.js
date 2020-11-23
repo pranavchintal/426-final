@@ -17,35 +17,52 @@ export class OscillatorTest extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
-            displayCents: this.props.synth.get().detune,
-            level: this.props.synth.get().volume,
-            mute: this.props.mutedOnLoad
+            displayCents: this.props.wholeSynth.detuneVal[this.props.oscNum - 1],
+            level: this.props.synth.get().volume > -10 ? -10 : this.props.synth.get().volume,
+            mute: this.props.isMute,
+            pitch: this.props.wholeSynth.pitch[this.props.oscNum - 1]
+
         };
 
+        this.defaultLevel = this.state.level;
+        this.defaultCents = this.state.displayCents;
+        this.defaultPitch = this.state.pitch;
+
+        this.pitch = this.state.pitch;
+        this.level = this.state.level;
+        this.cents = this.state.displayCents;
+
+
         this.changeOsc = this.changeOsc.bind(this);
-        this.adjust = this.adjust.bind(this);
+        this.adjustSliders = this.adjustSliders.bind(this);
+        this.adjustKnob = this.adjustKnob.bind(this);
         this.muteOsc = this.muteOsc.bind(this);
         this.preventDrag = this.preventDrag.bind(this);
+        this.updateDefaults = this.updateDefaults.bind(this);
     }
 
+    
+
     changeOsc(event) {
-        switch (event.target.textContent) {
-            case "Square":
+
+        switch (event.value) {
+            case "square32":
                 this.props.synth.set({
                     oscillator: {
                         type: "square32"
                     }
                 });
                 break;
-            case "Sine":
+            case "sine32":
                 this.props.synth.set({
                     oscillator: {
                         type: "sine32"
                     }
                 });
                 break;
-            case "Saw":
+            case "saw32":
                 this.props.synth.set({
                     oscillator: {
                         type: "sawtooth32"
@@ -53,35 +70,56 @@ export class OscillatorTest extends React.Component {
                 });
                 break;
         }
+
+    }
+
+    updateDefaults() {
+        console.log("updateDefaults called");
+        this.defaultLevel = this.level;
+        this.defaultCents = this.cents;
     }
 
     preventDrag(e) {
         e.preventDefault();
     }
 
-    adjust(event) {
-        switch (event.target.name) {
+    adjustKnob(value) {
+        this.props.synth.set({detune: (value * 100) + this.cents});
+        this.pitch = value;
+        //this.setState({ pitch: value }, this.updateDefaults);
+    }
+
+    adjustSliders(event, newValue) {
+
+
+        if(event.target.className === "js-focus-visible" || event.target.parentElement.childNodes[2] === undefined) {
+            return;
+        }
+
+        
+        //console.log(event);
+        const name = event.target.parentElement.childNodes[2].name;
+
+        switch (name) {
             case "cents":
-                this.props.synth.set({ detune: event.target.value });
-                this.setState({ displayCents: event.target.value });
+                this.props.synth.set({detune: (this.pitch * 100) + newValue});
+                //this.setState({ displayCents: newValue}, this.updateDefaults);
+                this.cents = newValue;
+                
                 break;
             case "level":
                 if (this.state.mute) break;
-                this.props.synth.set({ volume: event.target.value });
-                this.setState({ level: event.target.value });
-                break;
+                this.props.synth.set({ volume: newValue });
+                this.level = newValue;
+                //this.setState({ level: newValue }, this.updateDefaults);
+                break;    
         }
+        
     }
 
     muteOsc() {
-        if (!this.state.mute) {
-            this.setState({ mute: true });
-            this.props.synth.set({ volume: -200 })
-        } else {
-            this.setState({ mute: false });
-            this.props.synth.set({ volume: this.state.level });
-        }
-        console.log(this.state.mute);
+        this.props.wholeSynth.toggleMute(this.props.oscNum);
+        this.setState({mute : !this.state.mute}, this.updateDefaults)
     }
 
     render() {
@@ -89,12 +127,7 @@ export class OscillatorTest extends React.Component {
         let oscContainerClass = !this.state.mute ? "oscillator-container-active" : "oscillator-container-inactive";
         let oscLabelClass = !this.state.mute ? "osc-label-active" : "osc-label-inactive";
         let oscParamsVisibility = !this.state.mute ? "osc-params-visible" : "osc-params-invisible";
-        
-        const options = [
-            { value: 'sine32', label: <SineWave /> },
-            { value: 'sawtooth32', label: <SawWave /> },
-            { value: 'square32', label: <SquareWave /> }
-        ]
+    
 
         const customStyles = {
             option: (provided, state) => ({
@@ -152,24 +185,24 @@ export class OscillatorTest extends React.Component {
                     />
                 </label>
                 <div>
-                    {/* <button onClick={this.changeOsc}>Square</button>
-                    <button onClick={this.changeOsc}>Sine</button>
-                    <button onClick={this.changeOsc}>Saw</button> */}
+                    {/* <button onClick={this.changeOsc}>square32</button>
+                    <button onClick={this.changeOsc}>sine32</button>
+                    <button onClick={this.changeOsc}>saw32</button> */}
                 </div>
                 <div className={oscParamsVisibility}>
                 <div className="detune-slider-and-label">
                     <div className="detune-slider">
-                        <VerticalSlider defaultValue={50} min={-100} max={100} />
+                        <VerticalSlider name="cents" defaultValue={this.defaultCents} min={-100} max={100} onChange={this.adjustSliders} />
                     </div>
                     <p className="vertical-slider-label">DETUNE</p>
                 </div>
                     <div className="wave-dropdown">
-                        <Select options={options} styles={customStyles} defaultValue={options[0]} isSearchable={false} className="waveform-selector" />
+                        <Select options={OscillatorTest.options} styles={customStyles} defaultValue={OscillatorTest.options.find(elm => elm.value === this.props.synth.options.oscillator.type)} isSearchable={false} className="waveform-selector" onChange={this.changeOsc} />
                     </div>
                     <div className="pitch-knob" onMouseDown={this.preventDrag}>
                         <CircularSlider
                             width={42}
-                            onChange={value => { console.log(value); }}
+                            onChange={this.adjustKnob}
                             min={-12}
                             max={12}
                             knobPosition="left"
@@ -178,24 +211,30 @@ export class OscillatorTest extends React.Component {
                             progressColorFrom="#240046"
                             progressColorTo="#240046"
                             hideLabelValue={true}
+                            dataIndex={this.pitch + 12}
                         />
                         <p className="knob-label">PITCH</p>
                     </div>
 
-                    {/* <input name="cents" type='range' min='-100' max='100' step='1' value={this.state.displayCents} onChange={this.adjust}></input> */}
                     <div className="volume-slider">
 
-                        {/* <input name="level" type='range' min='-30' max='-10' step='1' value={this.state.level} onChange={this.adjust}></input> */}
-                        <CustomizedSlider defaultValue={-15} min={-30} max={-10} />
+                        <CustomizedSlider name='level' defaultValue={this.defaultLevel} min={OscillatorTest.levelMin} max={OscillatorTest.levelMax} onChange={this.adjustSliders}/>
                         <p>LEVEL</p>
                     </div>
 
-                    {/* <button onClick={this.muteOsc}>Mute</button> */}
                 </div>
             </div>);
     }
 
 }
 
+
+OscillatorTest.levelMax = -10;
+OscillatorTest.levelMin = -30;
 OscillatorTest.defaultCents = 0;
 OscillatorTest.defaultLevel = 0;
+OscillatorTest.options = [
+    { value: 'sine', label: <SineWave /> },
+    { value: 'sawtooth', label: <SawWave /> },
+    { value: 'square', label: <SquareWave /> }
+]

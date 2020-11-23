@@ -34,7 +34,7 @@ export class VerticalSlider extends React.Component {
     })(Slider);
 
     return (
-      <PrettoSlider defaultValue={this.props.defaultValue} min={this.props.min} max={this.props.max} className={this.props.className} orientation="vertical" />)
+      <PrettoSlider defaultValue={this.props.defaultValue} min={this.props.min} max={this.props.max} className={this.props.className} onChange={this.props.onChange} name={this.props.name} orientation="vertical" />)
   }
 
 }

@@ -16,48 +16,56 @@ export class AmpEnv extends React.Component {
         }
 
 
-        this.adjust = this.adjust.bind(this);
+        this.adjustSliders = this.adjustSliders.bind(this);
     }
 
 
-    adjust(event) {
+    adjustSliders(event, newValue) {
 
-        switch (event.target.name) {
+        if(event.target.className === "js-focus-visible" || event.target.parentElement.childNodes[2] === undefined) {
+            return;
+        }
+
+        
+        const name = event.target.parentElement.childNodes[2].name;
+        //console.log(name);
+
+        switch (name) {
             case "attack":
                 this.props.synth.forEach(elm => {
                     elm.set({
                         envelope:
-                            { attack: event.target.value / 1000 }
+                            { attack: newValue / 1000 }
                     });
                 });
-                this.setState({ attack: event.target.value });
+                //this.setState({ attack: event.target.value });
                 break;
             case "decay":
                 this.props.synth.forEach(elm => {
                     elm.set({
                         envelope:
-                            { decay: event.target.value / 1000 }
+                            { decay: newValue / 1000 }
                     });
                 });
-                this.setState({ decay: event.target.value });
+                //this.setState({ decay: event.target.value });
                 break;
             case "sustain":
                 this.props.synth.forEach(elm => {
                     elm.set({
                         envelope:
-                            { sustain: event.target.value / 1000 }
+                            { sustain: newValue / 1000 }
                     });
                 });
-                this.setState({ sustain: event.target.value });
+              //this.setState({ sustain: event.target.value });
                 break;
             case "release":
                 this.props.synth.forEach(elm => {
                     elm.set({
                         envelope:
-                            { release: event.target.value / 1000 }
+                            { release: newValue / 1000 }
                     });
                 });
-                this.setState({ release: event.target.value });
+                //this.setState({ release: event.target.value });
                 break;
         }
     }
@@ -66,24 +74,20 @@ export class AmpEnv extends React.Component {
         return (
             <div className='amp-container'>
                 <div className="adsr-slider">
-                    <VerticalSlider defaultValue={10} min={0} max={100} />
+                    <VerticalSlider name="attack" defaultValue={this.state.attack} min={0} max={7500} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">ATTACK</p>
-                    {/* <input onChange={this.adjust} name='attack' type='range' min='0' max='1000' step='1' value={this.state.attack}></input> */}
                 </div>
                 <div className="adsr-slider">
-                    <VerticalSlider defaultValue={40} min={0} max={100} />
+                    <VerticalSlider name="decay" defaultValue={this.state.decay} min={0} max={11000} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">DECAY</p>
-                    {/* <input onChange={this.adjust} name='decay' type='range' min='0' max='1000' step='1' value={this.state.decay}></input> */}
                 </div>
                 <div className="adsr-slider">
-                    <VerticalSlider defaultValue={80} min={0} max={100} />
+                    <VerticalSlider name="sustain" defaultValue={this.state.sustain} min={0} max={100} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">SUSTAIN</p>
-                    {/* <input onChange={this.adjust} name='sustain' type='range' min='0' max='1000' step='1' value={this.state.sustain}></input> */}
                 </div>
                 <div className="adsr-slider">
-                    <VerticalSlider defaultValue={30} min={0} max={100} />
+                    <VerticalSlider name="release" defaultValue={this.state.release} min={0} max={11000} onChange={this.adjustSliders}/>
                     <p className="vertical-slider-label">RELEASE</p>
-                    {/* <input onChange={this.adjust} name='release' type='range' min='0' max='1000' step='1' value={this.state.release}></input>      */}
                 </div>
             </div>
         )
