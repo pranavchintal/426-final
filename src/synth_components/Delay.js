@@ -94,48 +94,61 @@ export class Delay extends React.Component {
                         <div className="verb-decay-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
+
                                 onChange={this.adjust1}
                                 min={0}
                                 max={1000}
+
+
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+
                                 dataIndex={this.state.delayTime}
+
                             />
                             <p className="knob-label">TIME</p>
                         </div>
                         <div className="verb-delay-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
+
                                 onChange={this.adjust2}
                                 min={0}
                                 max={100}
+
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+
                                 dataIndex={this.state.feedback}
+
                             />
                             <p className="knob-label">FDBK</p>
                         </div>
                         <div className="verb-amt-knob" onMouseDown={this.preventDrag}>
                             <CircularSlider
                                 width={42}
+
                                 onChange={this.adjust3}
                                 min={0}
                                 max={100}
+
                                 knobPosition="left"
                                 hideKnob={true}
                                 trackColor="#917FA2"
                                 progressColorFrom="#240046"
                                 progressColorTo="#240046"
                                 hideLabelValue={true}
+
                                 dataIndex={this.state.wet}
+
                             />
                             <p className="knob-label">AMOUNT</p>
                         </div>

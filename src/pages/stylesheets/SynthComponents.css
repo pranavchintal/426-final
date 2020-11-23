@@ -2,12 +2,13 @@
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
-    overflow: visible;
+    overflow: hidden;
     width: 1440px;
 }
 
 .osc-bank {
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     width: 100%;
     margin-bottom: 30px;
@@ -261,10 +262,10 @@
     display: inline-block;
     border: 4px solid white;
     border-radius: 91px;
-    height: 299px;
+    height: 309px;
     width: 168px;
     padding: 5px;
-    padding-top: 20px;
+    padding-top: 25px;
     margin-left: 45px;
     font-family: futura-pt, sans-serif;
     font-weight: 600;
@@ -282,10 +283,10 @@
     background: white;
     border: 4px solid white;
     border-radius: 91px;
-    height: 299px;
+    height: 309px;
     width: 168px;
     padding: 5px;
-    padding-top: 20px;
+    padding-top: 25px;
     margin-left: 45px;
     font-family: futura-pt, sans-serif;
     font-weight: 600;
