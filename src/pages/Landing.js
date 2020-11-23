@@ -6,7 +6,10 @@ import { Login } from './Login';
 
 export class Landing extends React.Component {
 
-    state = { show: false };
+    constructor(props) {
+        super(props);
+        this.state = { show: false };
+    }
 
     showModal = () => {
       this.setState({ show: true });

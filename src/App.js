@@ -14,6 +14,8 @@ function App() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, sethasAccount] = useState(false);
+  var db = fire.firestore();
+  let tempEmail = "";
 
   const clearInputs = () => {
     setEmail('')
@@ -25,6 +27,7 @@ function App() {
   }
   const handleLogin = () => {
     clearErrors();
+    tempEmail = email;
     fire.auth().signInWithEmailAndPassword(email, password)
       .catch(error => {
         switch (error.code) {
@@ -42,6 +45,7 @@ function App() {
   };
   const handleSignUp = () => {
     clearErrors();
+    tempEmail = email;
     fire.auth().createUserWithEmailAndPassword(email, password)
       .catch(error => {
         switch (error.code) {
@@ -55,15 +59,31 @@ function App() {
         }
       })
   };
+  
   const handleLogout = () => {
     fire.auth().signOut();
   };
+
   const authListener = () => {
-    fire.auth().onAuthStateChanged(user => {
-      if (user) {
-        clearInputs();
-        setUser(user);
+    fire.auth().onAuthStateChanged(newUser => {
+      console.log("auth state called");
+      if (newUser) {
+        var docRef = db.collection("users").doc(newUser.uid);
+        setUser(newUser);
         sethasAccount(true);
+        docRef.get().then(docSnapshot => {
+          if(docSnapshot.exists)
+          {
+            console.log(docRef.get());
+          }
+          else 
+          {
+            docRef.set({
+              email : email
+            })
+          }
+        })
+        clearInputs();
       }
       else {
         setUser('');
