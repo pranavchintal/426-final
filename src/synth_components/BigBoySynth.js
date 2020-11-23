@@ -4,21 +4,20 @@ export class BigBoySynth {
 
     constructor(synthOptions) {
 
-
         this.chorus = new Tone.Chorus(synthOptions.chorus);
         this.verb = new Tone.Reverb(synthOptions.reverb);
         this.delay = new Tone.FeedbackDelay(synthOptions.delay);
         this.dist = new Tone.Distortion(synthOptions.distortion);
-        this.chain = [null, null, null, null];
-        this.chainOrder = [this.chorus, this.verb, this.delay, this.dist]
+        this.chain = synthOptions.chain;
+        //this.chainOrder = [this.dist, this.delay, this.chorus, this.verb];
+        this.chainOrder = ["Distortion", "FeedbackDelay", "Chorus", "Reverb"];
         this.isMute = synthOptions.isMute;
         this.pitch = synthOptions.pitch;
         this.detuneVal = synthOptions.detuneVal;
 
-        this.voice1 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice1).chain(...this.noNull(this.chain), Tone.Destination);
-        this.voice2 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice2).chain(...this.noNull(this.chain), Tone.Destination);
-        this.voice3 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice3).chain(...this.noNull(this.chain), Tone.Destination);
-        console.log(this.voice1);
+        this.voice1 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice1).chain(...this.formatChain(), Tone.Destination);
+        this.voice2 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice2).chain(...this.formatChain(), Tone.Destination);
+        this.voice3 = new Tone.PolySynth(Tone.MonoSynth, synthOptions.voice3).chain(...this.formatChain(), Tone.Destination);
 
         this.voices = [this.voice1, this.voice2, this.voice3];
 
@@ -26,11 +25,36 @@ export class BigBoySynth {
             elm.maxPolyphony = 32;
         })
 
+        
+        this.formatChain = this.formatChain.bind(this);
         this.toggleChain = this.toggleChain.bind(this);
     }
 
-    noNull(arr) {
-        return arr.filter(elm => elm !== null);
+    formatChain() {
+
+        let result = [];
+
+        for(let i = 0; i < this.chain.length; i++) {
+            switch(this.chain[i]) {
+                case "Distortion":
+                    result[i] = this.dist;
+                    break;
+                case "FeedbackDelay":
+                    result[i] = this.delay;
+                    break;
+                case "Chorus":
+                    result[i] = this.chorus;
+                    break;
+                case "Reverb":
+                    result[i] = this.verb;
+                    break;
+            }
+        }
+
+        //console.log(result);
+        //console.log(result.length)
+
+        return result.filter(elm => elm !== null);
     }
 
     playNote(event) {
@@ -73,16 +97,16 @@ export class BigBoySynth {
     }
 
     toggleChain(effect) {
-        if(this.chain.includes(effect)) {
-            delete this.chain[this.chainOrder.indexOf(effect)];
+        if(this.chain.includes(effect.name)) {
+            delete this.chain[this.chainOrder.indexOf(effect.name)];
             effect.disconnect();
         } else {
-            this.chain.splice(this.chainOrder.indexOf(effect), 1, effect);
+            this.chain.splice(this.chainOrder.indexOf(effect.name), 1, effect.name);
         }
               
         console.log(this.chain);
 
-        this.voices.forEach(elm => elm.chain(...this.noNull(this.chain), Tone.Destination));
+        this.voices.forEach(elm => elm.chain(...this.formatChain(), Tone.Destination));
 
     }
 
@@ -127,3 +151,4 @@ BigBoySynth.keyNoteMap = {
     48: "D#6",
     187: "F#6"
 }
+

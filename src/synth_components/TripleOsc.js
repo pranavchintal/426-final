@@ -14,7 +14,6 @@ import '../pages/stylesheets/SynthComponents.css';
 
 export class TripleOsc extends React.Component {
 
-
     constructor(props) {
 
         super(props);
@@ -27,12 +26,46 @@ export class TripleOsc extends React.Component {
         this.props.synth.releaseNote(event);
     }
 
+    saveSynth() {
+        const replacerFunc = () => {
+            const visited = new WeakSet();
+            return (key, value) => {
+              if (typeof value === "object" && value !== null) {
+                if (visited.has(value)) {
+                  return;
+                }
+                visited.add(value);
+              }
+              return value;
+            };
+          };
+          
+        console.log("Old Synth: ");
+
+        const newOpt = new BigBoyOptions(this.props.synth);
+        
+
+        //console.log(newOpt);
+
+        let jsonOpt = JSON.stringify(newOpt, replacerFunc());
+
+        const unJsonOpt = JSON.parse(jsonOpt);
+
+        console.log(unJsonOpt);
+
+        // const newSynth = new BigBoySynth(unJsonOpt);
+
+
+        // console.log("New Synth: ");
+        // console.log(newSynth);
+
+    }
 
     handleKeyPress(event) {
 
         if(event.key === '1') {
-
-            console.log(JSON.stringify(this.synth));
+            console.log(this.props.synth);
+            //this.saveSynth();
         }
         // event.persist();
         // console.log(event);
@@ -82,7 +115,7 @@ export class TripleOsc extends React.Component {
                     <Dist synth={this.props.synth} />
                     <Delay synth={this.props.synth} />
                     <Chorus synth={this.props.synth} />
-                    <Verb synth={this.props.synth} parentState={this.props.state} />
+                    <Verb synth={this.props.synth} parentState={this.state} />
                     <Port synth={this.props.synth.voices} />
                 </div>
             </div>

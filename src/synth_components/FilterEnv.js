@@ -25,9 +25,7 @@ export class FilterEnv extends React.Component {
         this.adjustSliders = this.adjustSliders.bind(this);
     }
 
-
     adjustWarp(value) {
-
 
         this.props.synth.forEach(elm => {
             elm.set({
@@ -37,9 +35,7 @@ export class FilterEnv extends React.Component {
         })
     }
 
-
     adjustCutoff(value) {
-
 
         this.props.synth.forEach(elm => {
             elm.set({
@@ -64,7 +60,7 @@ export class FilterEnv extends React.Component {
             case "attack":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        envelope:
+                        filterEnvelope:
                             { attack: newValue / 1000 }
                     });
                 });
@@ -72,7 +68,7 @@ export class FilterEnv extends React.Component {
             case "decay":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        envelope:
+                        filterEnvelope:
                             { decay: newValue / 1000 }
                     });
                 });
@@ -80,7 +76,7 @@ export class FilterEnv extends React.Component {
             case "sustain":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        envelope:
+                        filterEnvelope:
                             { sustain: newValue / 100 }
                     });
                 });
@@ -88,14 +84,13 @@ export class FilterEnv extends React.Component {
             case "release":
                 this.props.synth.forEach(elm => {
                     elm.set({
-                        envelope:
+                        filterEnvelope:
                             { release: newValue / 1000 }
                     });
                 });
                 break;
         }
     }
-
 
     render() {
         return (

@@ -9,18 +9,17 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 import { CustomizedSlider } from '../pages/small_components/CustomizedSlider';
 import { VerticalSlider } from '../pages/small_components/VerticalSlider';
 
-
 import '../pages/stylesheets/SynthComponents.css';
+
 
 export class OscillatorTest extends React.Component {
 
     constructor(props) {
         super(props);
 
-
         this.state = {
             displayCents: this.props.wholeSynth.detuneVal[this.props.oscNum - 1],
-            level: this.props.synth.get().volume > -10 ? -10 : this.props.synth.get().volume,
+            level: this.props.synth.get().volume,
             mute: this.props.isMute,
             pitch: this.props.wholeSynth.pitch[this.props.oscNum - 1]
 
@@ -34,7 +33,6 @@ export class OscillatorTest extends React.Component {
         this.level = this.state.level;
         this.cents = this.state.displayCents;
 
-
         this.changeOsc = this.changeOsc.bind(this);
         this.adjustSliders = this.adjustSliders.bind(this);
         this.adjustKnob = this.adjustKnob.bind(this);
@@ -47,34 +45,40 @@ export class OscillatorTest extends React.Component {
 
     changeOsc(event) {
 
-        switch (event.value) {
-            case "square32":
-                this.props.synth.set({
-                    oscillator: {
-                        type: "square32"
-                    }
-                });
-                break;
-            case "sine32":
-                this.props.synth.set({
-                    oscillator: {
-                        type: "sine32"
-                    }
-                });
-                break;
-            case "saw32":
-                this.props.synth.set({
-                    oscillator: {
-                        type: "sawtooth32"
-                    }
-                });
-                break;
-        }
+        //console.log(event.value);
+        this.props.synth.set({
+            oscillator: {
+                type: event.value
+            }
+        });
+
+        // switch (event.value) {
+        //     case "square32":
+        //         this.props.synth.set({
+        //             oscillator: {
+        //                 type: "square32"
+        //             }
+        //         });
+        //         break;
+        //     case "sine32":
+        //         this.props.synth.set({
+        //             oscillator: {
+        //                 type: "sine32"
+        //             }
+        //         });
+        //         break;
+        //     case "sawtooth32":
+        //         this.props.synth.set({
+        //             oscillator: {
+        //                 type: "sawtooth32"
+        //             }
+        //         });
+        //         break;
+        // }
 
     }
 
     updateDefaults() {
-        console.log("updateDefaults called");
         this.defaultLevel = this.level;
         this.defaultCents = this.cents;
     }
@@ -86,11 +90,10 @@ export class OscillatorTest extends React.Component {
     adjustKnob(value) {
         this.props.synth.set({detune: (value * 100) + this.cents});
         this.pitch = value;
-        //this.setState({ pitch: value }, this.updateDefaults);
+        this.props.wholeSynth.pitch[this.props.oscNum - 1] = value;
     }
 
     adjustSliders(event, newValue) {
-
 
         if(event.target.className === "js-focus-visible" || event.target.parentElement.childNodes[2] === undefined) {
             return;
@@ -103,15 +106,13 @@ export class OscillatorTest extends React.Component {
         switch (name) {
             case "cents":
                 this.props.synth.set({detune: (this.pitch * 100) + newValue});
-                //this.setState({ displayCents: newValue}, this.updateDefaults);
                 this.cents = newValue;
-                
+                this.props.wholeSynth.detuneVal[this.props.oscNum - 1] = newValue;
                 break;
             case "level":
                 if (this.state.mute) break;
                 this.props.synth.set({ volume: newValue });
                 this.level = newValue;
-                //this.setState({ level: newValue }, this.updateDefaults);
                 break;    
         }
         
@@ -184,11 +185,6 @@ export class OscillatorTest extends React.Component {
                         className="osc-switch"
                     />
                 </label>
-                <div>
-                    {/* <button onClick={this.changeOsc}>square32</button>
-                    <button onClick={this.changeOsc}>sine32</button>
-                    <button onClick={this.changeOsc}>saw32</button> */}
-                </div>
                 <div className={oscParamsVisibility}>
                 <div className="detune-slider-and-label">
                     <div className="detune-slider">
@@ -228,13 +224,12 @@ export class OscillatorTest extends React.Component {
 
 }
 
-
 OscillatorTest.levelMax = -10;
 OscillatorTest.levelMin = -30;
 OscillatorTest.defaultCents = 0;
 OscillatorTest.defaultLevel = 0;
 OscillatorTest.options = [
-    { value: 'sine', label: <SineWave /> },
-    { value: 'sawtooth', label: <SawWave /> },
-    { value: 'square', label: <SquareWave /> }
+    { value: 'sine32', label: <SineWave /> },
+    { value: 'sawtooth32', label: <SawWave /> },
+    { value: 'square32', label: <SquareWave /> }
 ]
