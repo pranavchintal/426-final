@@ -34,6 +34,8 @@ html {
   padding: 0 20px;
   background: none;
   display: flex;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .login .loginContainer {
@@ -41,11 +43,12 @@ html {
   padding-top: 40px;
   padding-bottom: 30px;
   margin: auto;
-  margin-top: 150px;
+  margin-top: 10vh;
   width: 100%;
   max-width: 540px;
-  min-height: 540px;
+  height: 540px;
   display: flex;
+  overflow: visible;
   flex-direction: column;
   justify-content: center;
   background: radial-gradient(
@@ -110,11 +113,13 @@ html {
 }
 
 .signin-button {
-  color: #440D77;
+  background: #5A189A;
+  color: white;
 }
 
 .signin-button:hover {
-  background: #E6E6E6;
+  background: #50158A;
+  color: white;
   cursor: pointer;
 }
 
@@ -133,6 +138,10 @@ html {
   margin-left: auto;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.close-button:active {
+  transform: scale(0.97);
 }
 
 .errorMessage {

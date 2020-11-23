@@ -145,3 +145,25 @@
 .table-row:hover {
     background: #4A1480;
 }
+
+label.Mui-focused {
+    color: 'white';
+    font-family: "futura-pt"
+}
+
+.MuiFormLabel-root {
+    color: 'white';
+    font-family: "futura-pt"
+}
+
+.MuiInputBase-root {
+    color: 'white',
+}
+
+.MuiInput-underline:before {
+    border-bottom-color: 'white',
+}
+
+.MuiInput-underline:after {
+    border-bottom-color: 'white',
+}
