@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/soundbites/static/css/main.026a7a20.chunk.css",
+    "main.js": "/soundbites/static/js/main.11f4240a.chunk.js",
+    "main.js.map": "/soundbites/static/js/main.11f4240a.chunk.js.map",
+    "runtime-main.js": "/soundbites/static/js/runtime-main.0e4aedac.js",
+    "runtime-main.js.map": "/soundbites/static/js/runtime-main.0e4aedac.js.map",
+    "static/css/2.a2825889.chunk.css": "/soundbites/static/css/2.a2825889.chunk.css",
+    "static/js/2.96b1c49f.chunk.js": "/soundbites/static/js/2.96b1c49f.chunk.js",
+    "static/js/2.96b1c49f.chunk.js.map": "/soundbites/static/js/2.96b1c49f.chunk.js.map",
+    "static/js/3.bb7c8b86.chunk.js": "/soundbites/static/js/3.bb7c8b86.chunk.js",
+    "static/js/3.bb7c8b86.chunk.js.map": "/soundbites/static/js/3.bb7c8b86.chunk.js.map",
+    "index.html": "/soundbites/index.html",
+    "static/css/2.a2825889.chunk.css.map": "/soundbites/static/css/2.a2825889.chunk.css.map",
+    "static/css/main.026a7a20.chunk.css.map": "/soundbites/static/css/main.026a7a20.chunk.css.map",
+    "static/js/2.96b1c49f.chunk.js.LICENSE.txt": "/soundbites/static/js/2.96b1c49f.chunk.js.LICENSE.txt",
+    "static/media/arrow.95b4cfc8.svg": "/soundbites/static/media/arrow.95b4cfc8.svg",
+    "static/media/Landing.css": "/soundbites/static/media/landing_background.34690622.svg",
+    "static/media/saw_wave.a3a3e5c6.svg": "/soundbites/static/media/saw_wave.a3a3e5c6.svg",
+    "static/media/sine_wave.9782b949.svg": "/soundbites/static/media/sine_wave.9782b949.svg",
+    "static/media/square_wave.394625e7.svg": "/soundbites/static/media/square_wave.394625e7.svg",
+    "static/media/synth_icons.93cc75a7.svg": "/soundbites/static/media/synth_icons.93cc75a7.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0e4aedac.js",
+    "static/css/2.a2825889.chunk.css",
+    "static/js/2.96b1c49f.chunk.js",
+    "static/css/main.026a7a20.chunk.css",
+    "static/js/main.11f4240a.chunk.js"
+  ]
+}
