@@ -148,20 +148,20 @@ export class PatchBrowser extends React.Component {
 
         ];
 
-        if(this.props.patchName!=='')
-        {
-            dataArr.push({
-                user: "pranavchintal",
-                patchName: this.props.patchName,
-                desc: this.props.patchDescription
-            })
-            var docRef = fire.firestore().collection("patch").doc(this.user.uid);
-            docRef.get().then(docSnapshot => {
-                docRef.set({
-                    check : "hello"
-                  })
-              })
-        }
+        // if(this.props.patchName!=='')
+        // {
+        //     dataArr.push({
+        //         user: "pranavchintal",
+        //         patchName: this.props.patchName,
+        //         desc: this.props.patchDescription
+        //     })
+        //     var docRef = fire.firestore().collection("patch").doc(this.user.uid);
+        //     docRef.get().then(docSnapshot => {
+        //         docRef.set({
+        //             check : "hello"
+        //           })
+        //       })
+        // }
  
 
 
