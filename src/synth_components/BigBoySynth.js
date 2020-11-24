@@ -28,6 +28,7 @@ export class BigBoySynth {
         
         this.formatChain = this.formatChain.bind(this);
         this.toggleChain = this.toggleChain.bind(this);
+        this.panic = this.panic.bind(this);
     }
 
     formatChain() {
@@ -94,6 +95,12 @@ export class BigBoySynth {
     toggleMute(num) {
         this.isMute[num - 1] = !this.isMute[num - 1];
         console.log(this.isMute);
+    }
+
+    panic() {
+        this.voices.forEach(elm => {
+            elm.releaseAll();
+        })
     }
 
     toggleChain(effect) {

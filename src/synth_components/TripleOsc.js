@@ -19,11 +19,14 @@ export class TripleOsc extends React.Component {
         super(props);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleKeyRelease = this.handleKeyRelease.bind(this);
+        this.state = {synth: this.props.synth};
+
+        this.panic = this.panic.bind(this);
 
     }
 
     handleKeyRelease(event) {
-        this.props.synth.releaseNote(event);
+        this.state.synth.releaseNote(event);
     }
 
     saveSynth() {
@@ -42,7 +45,7 @@ export class TripleOsc extends React.Component {
           
         console.log("Old Synth: ");
 
-        const newOpt = new BigBoyOptions(this.props.synth);
+        const newOpt = new BigBoyOptions(this.state.synth);
         
 
         //console.log(newOpt);
@@ -61,16 +64,21 @@ export class TripleOsc extends React.Component {
 
     }
 
+    panic() {
+        this.state.synth.panic();
+    }
+
     handleKeyPress(event) {
 
         if(event.key === '1') {
-            console.log(this.props.synth);
+            this.setState({synth: this.props.synth});
+            console.log(this.state.synth);
             //this.saveSynth();
         }
         // event.persist();
         // console.log(event);
 
-        this.props.synth.playNote(event);
+        this.state.synth.playNote(event);
     }
 
     render() {
@@ -82,9 +90,12 @@ export class TripleOsc extends React.Component {
                     </span>
                 </div>
                 <div className="osc-bank">
-                    <OscillatorTest synth={this.props.synth.voice1} oscNum="1" isMute={this.props.synth.isMute[0]} wholeSynth={this.props.synth}/>
-                    <OscillatorTest synth={this.props.synth.voice2} oscNum="2" isMute={this.props.synth.isMute[1]} wholeSynth={this.props.synth}/>
-                    <OscillatorTest synth={this.props.synth.voice3} oscNum="3" isMute={this.props.synth.isMute[2]} wholeSynth={this.props.synth}/>
+
+                    <button onClick={this.panic}>Panic!</button>
+                    <OscillatorTest synth={this.state.synth.voice1} oscNum="1" isMute={this.state.synth.isMute[0]} wholeSynth={this.state.synth}/>
+                    <OscillatorTest synth={this.state.synth.voice2} oscNum="2" isMute={this.state.synth.isMute[1]} wholeSynth={this.state.synth}/>
+                    <OscillatorTest synth={this.state.synth.voice3} oscNum="3" isMute={this.state.synth.isMute[2]} wholeSynth={this.state.synth}/>
+
                 </div>
                 <div className="envelopes">
                     <div className="amp-container-plus-label">
@@ -93,7 +104,7 @@ export class TripleOsc extends React.Component {
                                 AMPLITUDE ENVELOPE
                             </span>
                         </div>
-                        <AmpEnv synth={this.props.synth.voices} />
+                        <AmpEnv synth={this.state.synth.voices} />
                     </div>
                     {/* <div className="fullwidth-break"></div> */}
                     <div className="filter-container-plus-label">
@@ -102,7 +113,7 @@ export class TripleOsc extends React.Component {
                                 FILTER ENVELOPE
                             </span>
                         </div>
-                        <FilterEnv synth={this.props.synth.voices} />
+                        <FilterEnv synth={this.state.synth.voices} />
                     </div>
                 </div>
                 <div className="fx-label">
@@ -115,6 +126,7 @@ export class TripleOsc extends React.Component {
                     <Delay synth={this.props.synth} />
                     <Chorus synth={this.props.synth} />
                     <Verb synth={this.props.synth} parentState={this.state} />
+
                 </div>
             </div>
         )

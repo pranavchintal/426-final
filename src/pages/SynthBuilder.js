@@ -13,10 +13,15 @@ import { BigBoyOptions } from "../synth_components/BigBoyOptions.js";
 export class SynthBuilder extends React.Component {
 
     constructor(props) {
+
         super(props);
         this.state = {
             show: false,
-            showLogout: this.props.isSignedIn
+
+            showLogout: this.props.isSignedIn,
+            synth : new BigBoySynth(new BigBoyOptions({}))
+   
+        };
 
 
         };
@@ -56,9 +61,10 @@ export class SynthBuilder extends React.Component {
 
         let final = JSON.parse(otherRef.data().testName);
 
-        this.synth = new BigBoySynth(final);
+        //this.state.synth = new BigBoySynth(final);
+        this.setState({synth: new BigBoySynth(final)});
 
-        console.log(this.synth);
+        console.log(this.state.synth);
     }
 
     savePatch() {
@@ -77,7 +83,7 @@ export class SynthBuilder extends React.Component {
         };
 
 
-        let newOpt = new BigBoyOptions(this.synth);
+        let newOpt = new BigBoyOptions(this.state.synth);
 
         let jsonOpt = JSON.stringify(newOpt, replacerFunc());
 
@@ -105,6 +111,15 @@ export class SynthBuilder extends React.Component {
     };
 
     render() {
+
+        const setname=(temp)=>{
+            this.setState({ patchName: temp });
+        }
+        const setdescription=(temp)=>{
+            this.setState({ patchDescription: temp });
+        }
+ 
+
         return (
             <div id="creator-container">
                 <h1 className="creator-title">
@@ -125,6 +140,7 @@ export class SynthBuilder extends React.Component {
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
+
                     <a href="#creator-container" onClick={this.savePatch}>
                         SAVE
                     </a>
@@ -132,11 +148,13 @@ export class SynthBuilder extends React.Component {
                         LOGOUT
                     </a>
                 </div>
-                <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} />
+
                 <div className="instructions">
                     <p>Click on any control to start the synth engine. Use your keyboard to play notes!</p>
                 </div>
-                <TripleOsc synth={this.synth} />
+
+                <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} patchName={this.state.patchName} patchDescription= {this.state.patchDescription} user={this.props.user}/>
+                <TripleOsc synth={this.state.synth}/>
             </div>
         )
     }

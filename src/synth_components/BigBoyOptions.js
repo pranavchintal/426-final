@@ -17,6 +17,8 @@ export class BigBoyOptions {
         this.pitch = synth.pitch === undefined ? [0, 0, 0] : synth.pitch;
         this.detuneVal = synth.detuneVal === undefined ? [0, 0, 0] : synth.detuneVal;
 
+
+
         // this.voice1.oscillator.type = "sawtooth32";
         // this.voice2.oscillator.type = "sawtooth32";
         // this.voice3.oscillator.type = "sawtooth32";
