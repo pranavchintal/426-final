@@ -118,6 +118,7 @@ export class SynthBuilder extends React.Component {
  
 
         return (
+            <>
             <div id="creator-container">
                 <h1 className="creator-title">
                     CREATOR
@@ -131,16 +132,16 @@ export class SynthBuilder extends React.Component {
                             </g>
                         </svg>
                     </a>
-                    <a href="#creator-container" onClick={this.loadPatch}>
+                    {/* <a href="#creator-container" onClick={this.loadPatch}>
                         LOAD
-                    </a>
+                    </a> */}
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
 
-                    <a href="#creator-container" onClick={this.savePatch}>
+                    {/* <a href="#creator-container" onClick={this.savePatch}>
                         SAVE
-                    </a>
+                    </a> */}
                     <a href="#creator-container" className={this.state.showLogout ? "display-initial" : "display-none"} onClick={this.handleLogout}>
                         LOGOUT
                     </a>
@@ -153,6 +154,16 @@ export class SynthBuilder extends React.Component {
                 <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} patchName={this.state.patchName} patchDescription= {this.state.patchDescription} user={this.props.user}/>
                 <TripleOsc synth={this.state.synth}/>
             </div>
+            <div className="footer">
+                    <p>
+                        Soundbites was developed by Pranav Chintalapudi, Will Ritchie and Sahith Desham.
+                    </p>
+                    <div className="footer-break"></div>
+                    <a href="https://github.com/pranavchintal/soundbites" className="repo-link">
+                        Repository
+                    </a>
+            </div>
+            </>
         )
     }
 }
