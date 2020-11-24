@@ -1,31 +1,32 @@
 {
   "files": {
     "main.css": "/soundbites/static/css/main.c1d8f0a0.chunk.css",
-    "main.js": "/soundbites/static/js/main.74f80c5e.chunk.js",
-    "main.js.map": "/soundbites/static/js/main.74f80c5e.chunk.js.map",
-    "runtime-main.js": "/soundbites/static/js/runtime-main.0e4aedac.js",
-    "runtime-main.js.map": "/soundbites/static/js/runtime-main.0e4aedac.js.map",
+    "main.js": "/soundbites/static/js/main.8f02b43b.chunk.js",
+    "main.js.map": "/soundbites/static/js/main.8f02b43b.chunk.js.map",
+    "runtime-main.js": "/soundbites/static/js/runtime-main.530069b2.js",
+    "runtime-main.js.map": "/soundbites/static/js/runtime-main.530069b2.js.map",
     "static/css/2.a2825889.chunk.css": "/soundbites/static/css/2.a2825889.chunk.css",
-    "static/js/2.743ad8e8.chunk.js": "/soundbites/static/js/2.743ad8e8.chunk.js",
-    "static/js/2.743ad8e8.chunk.js.map": "/soundbites/static/js/2.743ad8e8.chunk.js.map",
-    "static/js/3.bb7c8b86.chunk.js": "/soundbites/static/js/3.bb7c8b86.chunk.js",
-    "static/js/3.bb7c8b86.chunk.js.map": "/soundbites/static/js/3.bb7c8b86.chunk.js.map",
+    "static/js/2.6d92cf9d.chunk.js": "/soundbites/static/js/2.6d92cf9d.chunk.js",
+    "static/js/2.6d92cf9d.chunk.js.map": "/soundbites/static/js/2.6d92cf9d.chunk.js.map",
+    "static/js/3.bf55cfe2.chunk.js": "/soundbites/static/js/3.bf55cfe2.chunk.js",
+    "static/js/3.bf55cfe2.chunk.js.map": "/soundbites/static/js/3.bf55cfe2.chunk.js.map",
     "index.html": "/soundbites/index.html",
     "static/css/2.a2825889.chunk.css.map": "/soundbites/static/css/2.a2825889.chunk.css.map",
     "static/css/main.c1d8f0a0.chunk.css.map": "/soundbites/static/css/main.c1d8f0a0.chunk.css.map",
-    "static/js/2.743ad8e8.chunk.js.LICENSE.txt": "/soundbites/static/js/2.743ad8e8.chunk.js.LICENSE.txt",
+    "static/js/2.6d92cf9d.chunk.js.LICENSE.txt": "/soundbites/static/js/2.6d92cf9d.chunk.js.LICENSE.txt",
     "static/media/arrow.95b4cfc8.svg": "/soundbites/static/media/arrow.95b4cfc8.svg",
     "static/media/Landing.css": "/soundbites/static/media/landing_background.34690622.svg",
     "static/media/saw_wave.a3a3e5c6.svg": "/soundbites/static/media/saw_wave.a3a3e5c6.svg",
     "static/media/sine_wave.9782b949.svg": "/soundbites/static/media/sine_wave.9782b949.svg",
     "static/media/square_wave.394625e7.svg": "/soundbites/static/media/square_wave.394625e7.svg",
+    "static/media/svg_circular_knob_handle.fc0307a2.svg": "/soundbites/static/media/svg_circular_knob_handle.fc0307a2.svg",
     "static/media/synth_icons.93cc75a7.svg": "/soundbites/static/media/synth_icons.93cc75a7.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.0e4aedac.js",
+    "static/js/runtime-main.530069b2.js",
     "static/css/2.a2825889.chunk.css",
-    "static/js/2.743ad8e8.chunk.js",
+    "static/js/2.6d92cf9d.chunk.js",
     "static/css/main.c1d8f0a0.chunk.css",
-    "static/js/main.74f80c5e.chunk.js"
+    "static/js/main.8f02b43b.chunk.js"
   ]
 }
