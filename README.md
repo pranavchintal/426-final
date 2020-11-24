@@ -1,7 +1,7 @@
 # Soundbites
 #### A synthesizer building playground built on Tone.js.
 
-Soundbites is the COMP 426 final project of Pranav Chintalapudi, Will Ritchie, and Sahith Desham. It's built so anyone can experience the fun of messing around with a synthesizer and creating awesome sounds, without a lick of musical or synth experience. It's still under active development -- pardon our dust!
+Soundbites is the COMP 426 final project of Pranav Chintalapudi, Will Ritchie, and Sahith Desham. It's built so anyone can experience the fun of messing around with a synthesizer and creating awesome sounds, without a lick of musical or synth experience. The app is still under active development -- pardon our dust!
 
 ## Getting Started
 Soundbites is simple to use. Click on any control on the Creator to start the synth up, and use the letter keys on your keyboard to play notes. Think of the keys as a piano keyboard, like this illustration:
