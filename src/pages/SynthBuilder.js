@@ -14,19 +14,15 @@ export class SynthBuilder extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             show: false,
             showLogout: this.props.isSignedIn
-            
+
 
         };
 
+        this.synth = new BigBoySynth(new BigBoyOptions({}));
 
-
-        this.synth = new BigBoySynth(JSON.parse('{"chorus":{"wet":0.5,"feedback":0,"frequency":1,"delayTime":0.005,"depth":0.7,"type":"sine","spread":180},"reverb":{"wet":1,"decay":1.5,"preDelay":0.01},"delay":{"wet":1,"feedback":0.13,"delayTime":0.25,"maxDelay":1},"distortion":{"wet":1,"distortion":0.4,"oversample":"none"},"chain":[],"voice1":{"volume":-16.999999999999996,"detune":-436,"portamento":0,"envelope":{"attack":0.005,"attackCurve":"linear","decay":0.1,"decayCurve":"exponential","release":1,"releaseCurve":"exponential","sustain":0.9},"filter":{"Q":2,"detune":0,"frequency":0,"gain":0,"rolloff":-48,"type":"lowpass"},"filterEnvelope":{"attack":0.6,"attackCurve":"linear","decay":0.2,"decayCurve":"exponential","release":2,"releaseCurve":"exponential","sustain":0.5,"baseFrequency":350,"exponent":2,"octaves":3},"oscillator":{"detune":-436,"frequency":440,"partialCount":32,"partials":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"phase":0,"type":"sine32"}},"voice2":{"volume":-17.999999999999996,"detune":500,"portamento":0,"envelope":{"attack":0.005,"attackCurve":"linear","decay":0.1,"decayCurve":"exponential","release":1,"releaseCurve":"exponential","sustain":0.9},"filter":{"Q":2,"detune":0,"frequency":0,"gain":0,"rolloff":-48,"type":"lowpass"},"filterEnvelope":{"attack":0.6,"attackCurve":"linear","decay":0.2,"decayCurve":"exponential","release":2,"releaseCurve":"exponential","sustain":0.5,"baseFrequency":350,"exponent":2,"octaves":3},"oscillator":{"detune":500,"frequency":440,"partialCount":32,"partials":[0.6366197723675814,-0.3183098861837907,0.2122065907891938,-0.15915494309189535,0.12732395447351627,-0.1061032953945969,0.09094568176679733,-0.07957747154594767,0.0707355302630646,-0.06366197723675814,0.057874524760689224,-0.05305164769729845,0.048970751720583176,-0.04547284088339867,0.04244131815783876,-0.039788735772973836,0.03744822190397537,-0.0353677651315323,0.033506303808820075,-0.03183098861837907,0.03031522725559911,-0.028937262380344612,0.027679120537720932,-0.026525823848649224,0.025464790894703253,-0.024485375860291588,0.0235785100876882,-0.022736420441699334,0.021952405943709702,-0.02122065907891938,0.02053612168927682,-0.019894367886486918],"phase":0,"type":"sawtooth32"}},"voice3":{"volume":-10,"detune":0,"portamento":0,"envelope":{"attack":0.005,"attackCurve":"linear","decay":0.1,"decayCurve":"exponential","release":1,"releaseCurve":"exponential","sustain":0.9},"filter":{"Q":2,"detune":0,"frequency":0,"gain":0,"rolloff":-48,"type":"lowpass"},"filterEnvelope":{"attack":0.6,"attackCurve":"linear","decay":0.2,"decayCurve":"exponential","release":2,"releaseCurve":"exponential","sustain":0.5,"baseFrequency":350,"exponent":2,"octaves":3},"oscillator":{"detune":0,"frequency":440,"partialCount":32,"partials":[0.6366197723675814,-0.3183098861837907,0.2122065907891938,-0.15915494309189535,0.12732395447351627,-0.1061032953945969,0.09094568176679733,-0.07957747154594767,0.0707355302630646,-0.06366197723675814,0.057874524760689224,-0.05305164769729845,0.048970751720583176,-0.04547284088339867,0.04244131815783876,-0.039788735772973836,0.03744822190397537,-0.0353677651315323,0.033506303808820075,-0.03183098861837907,0.03031522725559911,-0.028937262380344612,0.027679120537720932,-0.026525823848649224,0.025464790894703253,-0.024485375860291588,0.0235785100876882,-0.022736420441699334,0.021952405943709702,-0.02122065907891938,0.02053612168927682,-0.019894367886486918],"phase":0,"type":"sawtooth32"}},"isMute":[false,false,true],"pitch":[-4,5,0],"detuneVal":[-36,0,0]}'));
-        // this.synth.voice1.set({oscillator: {
-        //     type: "square32"
-        // }});
         this.handleLogout = this.props.handleLogout;
 
         fire.auth().onAuthStateChanged(() => {
@@ -46,14 +42,14 @@ export class SynthBuilder extends React.Component {
         console.log("loading patch");
         let docRef = fire.firestore().collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
 
-        docRef.get().then(function(doc) {
+        docRef.get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data().testName);
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log("Error getting document:", error);
         });
         let otherRef = await docRef.get();
@@ -70,15 +66,15 @@ export class SynthBuilder extends React.Component {
         const replacerFunc = () => {
             const visited = new WeakSet();
             return (key, value) => {
-              if (typeof value === "object" && value !== null) {
-                if (visited.has(value)) {
-                  return;
+                if (typeof value === "object" && value !== null) {
+                    if (visited.has(value)) {
+                        return;
+                    }
+                    visited.add(value);
                 }
-                visited.add(value);
-              }
-              return value;
+                return value;
             };
-          };
+        };
 
 
         let newOpt = new BigBoyOptions(this.synth);
@@ -86,26 +82,26 @@ export class SynthBuilder extends React.Component {
         let jsonOpt = JSON.stringify(newOpt, replacerFunc());
 
         console.log(jsonOpt);
-        
+
         var db = fire.firestore();
-      
-          console.log("save synth");
-      
-      // Create an initial document to update.
-      var dataBaseEntry = db.collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
-      dataBaseEntry.set({
-          testName: jsonOpt
-      });
-        
+
+        console.log("save synth");
+
+        // Create an initial document to update.
+        var dataBaseEntry = db.collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
+        dataBaseEntry.set({
+            testName: jsonOpt
+        });
+
 
     }
 
     showBrowser = () => {
-      this.setState({ show: true });
+        this.setState({ show: true });
     };
-  
+
     hideBrowser = () => {
-      this.setState({ show: false });
+        this.setState({ show: false });
     };
 
     render() {
@@ -123,25 +119,24 @@ export class SynthBuilder extends React.Component {
                             </g>
                         </svg>
                     </a>
-                    <a href="#creator-container">
-                        <a onClick={this.loadPatch}>
-                            LOAD PATCH
-                        </a>
+                    <a href="#creator-container" onClick={this.loadPatch}>
+                        LOAD
                     </a>
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
-                    <a href="#creator-container">
-                        <a onClick={this.savePatch}>
+                    <a href="#creator-container" onClick={this.savePatch}>
                         SAVE
-                    </a>
                     </a>
                     <a href="#creator-container" className={this.state.showLogout ? "display-initial" : "display-none"} onClick={this.handleLogout}>
                         LOGOUT
                     </a>
                 </div>
                 <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} />
-                <TripleOsc synth={this.synth}/>
+                <div className="instructions">
+                    <p>Click on any control to start the synth engine. Use your keyboard to play notes!</p>
+                </div>
+                <TripleOsc synth={this.synth} />
             </div>
         )
     }

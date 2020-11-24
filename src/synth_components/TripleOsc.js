@@ -85,7 +85,6 @@ export class TripleOsc extends React.Component {
                     <OscillatorTest synth={this.props.synth.voice1} oscNum="1" isMute={this.props.synth.isMute[0]} wholeSynth={this.props.synth}/>
                     <OscillatorTest synth={this.props.synth.voice2} oscNum="2" isMute={this.props.synth.isMute[1]} wholeSynth={this.props.synth}/>
                     <OscillatorTest synth={this.props.synth.voice3} oscNum="3" isMute={this.props.synth.isMute[2]} wholeSynth={this.props.synth}/>
-
                 </div>
                 <div className="envelopes">
                     <div className="amp-container-plus-label">
@@ -116,7 +115,6 @@ export class TripleOsc extends React.Component {
                     <Delay synth={this.props.synth} />
                     <Chorus synth={this.props.synth} />
                     <Verb synth={this.props.synth} parentState={this.state} />
-                    <Port synth={this.props.synth.voices} />
                 </div>
             </div>
         )
