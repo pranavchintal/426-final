@@ -327,3 +327,37 @@
 .dist-amt-knob {
     margin-top: 15px;
 }
+
+.panic {
+    display: block;
+    height: auto;
+    border: none;
+    text-decoration: none;
+    line-height: 20px;
+    padding: 15px 22px;
+    border-radius: 25px;
+    margin-top: 40px;
+    margin-left: 14px;
+    font-family: futura-pt, sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+    text-align: center;
+    background: #F03A5F;
+    color: white;
+    outline: none;
+}
+
+.panic:hover {
+    background: #ce2849;
+    cursor: pointer;
+}
+
+.panic:active {
+    transform: scale(0.98);
+    outline: none;
+}
+
+.panic-text {
+    color: #f85878;
+    font-weight: 600;
+}
