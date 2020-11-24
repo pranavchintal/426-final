@@ -70,6 +70,7 @@ function App() {
     fire.auth().onAuthStateChanged(newUser => {
       if (newUser) {
         var docRef = db.collection("users").doc(newUser.uid);
+        var docRef2 = db.collection("patch").doc(newUser.uid)
         setUser(newUser);
         sethasAccount(true);
         docRef.get().then(docSnapshot => {
@@ -84,8 +85,21 @@ function App() {
             })
           }
         })
-        clearInputs();
-      }
+        
+     docRef2.get().then(docSnapshot => {
+        if(docSnapshot.exists)
+        {
+          console.log(docRef2.get());
+        }
+        else 
+        {
+          docRef2.set({
+            email : email
+          })
+        }
+      })
+      clearInputs();
+    }
       else {
         setUser('');
         sethasAccount(false);
@@ -113,7 +127,7 @@ function App() {
         emailError={emailError}
         passwordError={passwordError}
         isSignedIn={user} />
-      <SynthBuilder handleLogout={handleLogout} isSignedIn={user} />
+      <SynthBuilder handleLogout={handleLogout} isSignedIn={user} user={user}/>
     </div>
   );
 }

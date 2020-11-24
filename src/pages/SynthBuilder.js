@@ -12,10 +12,13 @@ export class SynthBuilder extends React.Component {
         super(props);
         this.state = { 
             show: false,
-            showLogout: this.props.isSignedIn
+            showLogout: this.props.isSignedIn,
+            patchName: "",
+            patchDescription: ""
         };
 
         this.handleLogout = this.props.handleLogout;
+        this.user = this.props.user;
 
         fire.auth().onAuthStateChanged(() => {
             if (this.props.isSignedIn) {
@@ -33,8 +36,17 @@ export class SynthBuilder extends React.Component {
     hideBrowser = () => {
       this.setState({ show: false });
     };
+    
+    
 
     render() {
+        const setname=(temp)=>{
+            this.setState({ patchName: temp });
+        }
+        const setdescription=(temp)=>{
+            this.setState({ patchDescription: temp });
+        }
+
         return (
             <div id="creator-container">
                 <h1 className="creator-title">
@@ -55,18 +67,31 @@ export class SynthBuilder extends React.Component {
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
-                    <a href="#creator-container">
+                    {/* <a href="#creator-container">
                         SAVE
                         <svg id="ic_expand_more" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" style={{ marginLeft: '3px' }}>
                             <rect id="rectangle" width="24" height="24" fill="none" />
                             <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
                         </svg>
-                    </a>
+                    </a> */}
+                        <div class="dropdown">
+                            <button class="dropbtn">Dropdown</button>
+                            <svg id="ic_expand_more" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" style={{ marginLeft: '3px' }}>
+                            <rect id="rectangle" width="24" height="24" fill="none" />
+                            <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
+                        </svg>
+                            <div class="dropdown-content">
+                            <input type="text" placeholder="name of patch" 
+                             onChange={(e) => setname(e.target.value)}/>
+                            <input type ="text" placeholder="describe the patch" 
+                                onChange={(e) => setdescription(e.target.value)}/>                           
+                            </div>
+                        </div>
                     <a href="#creator-container" className={this.state.showLogout ? "display-initial" : "display-none"} onClick={this.handleLogout}>
                         LOGOUT
                     </a>
                 </div>
-                <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} />
+                <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} patchName={this.state.patchName} patchDescription= {this.state.patchDescription} user={this.user} />
                 <TripleOsc />
             </div>
         )

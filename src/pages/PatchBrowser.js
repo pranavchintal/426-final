@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles'
 
 import 'simplebar/dist/simplebar.min.css';
+import fire from '../fire';
 
 const CssTextField = withStyles({
     root: {
@@ -30,12 +31,12 @@ const CssTextField = withStyles({
 
 export class PatchBrowser extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             search: null
         }
-
+        this.user = this.props.user;
     }
 
     searchSpace = (event) => {
@@ -122,7 +123,23 @@ export class PatchBrowser extends React.Component {
                 desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper augue sem, vitae lobortis tortor lacinia vitae."
             },
 
+            
+
         ];
+        if(this.props.patchName!=='')
+        {
+            dataArr.push({
+                user: "pranavchintal",
+                patchName: this.props.patchName,
+                desc: this.props.patchDescription
+            })
+            var docRef = fire.firestore().collection("patch").doc(this.user.uid)
+            docRef.get().then(docSnapshot => {
+                docRef.set({
+                    check : "hello"
+                  })
+              })
+        }
 
         const items = dataArr.filter((data) => {
             if (this.state.search == null)
