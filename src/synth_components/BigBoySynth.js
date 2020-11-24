@@ -27,8 +27,36 @@ export class BigBoySynth {
 
         
         this.formatChain = this.formatChain.bind(this);
+        this.formatChainForJson = this.formatChainForJson.bind(this);
         this.toggleChain = this.toggleChain.bind(this);
         this.panic = this.panic.bind(this);
+    }
+
+    formatChainForJson() {
+
+        let result = [];
+
+        for(let i = 0; i < this.chain.length; i++) {
+            switch(this.chain[i]) {
+                case "Distortion":
+                    result[i] = this.dist;
+                    break;
+                case "FeedbackDelay":
+                    result[i] = this.delay;
+                    break;
+                case "Chorus":
+                    result[i] = this.chorus;
+                    break;
+                case "Reverb":
+                    result[i] = this.verb;
+                    break;
+            }
+        }
+
+        //console.log(result);
+        //console.log(result.length)
+
+        return result;
     }
 
     formatChain() {

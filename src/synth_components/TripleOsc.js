@@ -44,23 +44,17 @@ export class TripleOsc extends React.Component {
           };
           
         console.log("Old Synth: ");
-
+        
         const newOpt = new BigBoyOptions(this.state.synth);
         
 
-        //console.log(newOpt);
-
+        console.log(newOpt);
         let jsonOpt = JSON.stringify(newOpt, replacerFunc());
 
         const unJsonOpt = JSON.parse(jsonOpt);
 
-        console.log(unJsonOpt);
+        //console.log(unJsonOpt);
 
-        // const newSynth = new BigBoySynth(unJsonOpt);
-
-
-        // console.log("New Synth: ");
-        // console.log(newSynth);
 
     }
 
@@ -73,10 +67,8 @@ export class TripleOsc extends React.Component {
         if(event.key === '1') {
             this.setState({synth: this.props.synth});
             console.log(this.state.synth);
-            //this.saveSynth();
         }
-        // event.persist();
-        // console.log(event);
+
 
         this.state.synth.playNote(event);
     }
@@ -105,7 +97,6 @@ export class TripleOsc extends React.Component {
                         </div>
                         <AmpEnv synth={this.state.synth.voices} />
                     </div>
-                    {/* <div className="fullwidth-break"></div> */}
                     <div className="filter-container-plus-label">
                         <div className="filter-label">
                             <span>

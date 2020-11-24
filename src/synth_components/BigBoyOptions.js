@@ -9,7 +9,7 @@ export class BigBoyOptions {
         this.reverb = synth.verb === undefined ? Tone.Reverb.getDefaults() : synth.verb.get();
         this.delay = synth.delay === undefined ? Tone.FeedbackDelay.getDefaults() : synth.delay.get();
         this.distortion = synth.dist === undefined ? Tone.Distortion.getDefaults() : synth.dist.get();
-        this.chain = synth.chain === undefined ? [null, null, null, null] : synth.formatChain();
+        this.chain = [null, null, null, null];
         this.voice1 = BigBoyOptions.getVoiceDefaults(synth.voice1);
         this.voice2 = BigBoyOptions.getVoiceDefaults(synth.voice2);
         this.voice3 = BigBoyOptions.getVoiceDefaults(synth.voice3);

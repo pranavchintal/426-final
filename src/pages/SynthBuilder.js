@@ -86,21 +86,11 @@ export class SynthBuilder extends React.Component {
 
         let newOpt = new BigBoyOptions(this.state.synth);
 
+        //console.log(newOpt);
+
         let jsonOpt = JSON.stringify(newOpt, replacerFunc());
-
+              
         console.log(jsonOpt);
-        
-        var db = fire.firestore();
-      
-          console.log("save synth");
-      
-      // Create an initial document to update.
-      var dataBaseEntry = db.collection("users").doc("1Oa0XSgPyQN1EKxlTfJdrsN2VMB3");
-      dataBaseEntry.set({
-          testName: jsonOpt
-      });
-        
-
     }
 
     showBrowser = () => {
@@ -143,11 +133,11 @@ export class SynthBuilder extends React.Component {
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
-                    {/* <a href="#creator-container">
+                    <a href="#creator-container">
                         <a onClick={this.savePatch}>
                         SAVE
                     </a>
-                    </a> */}
+                    </a>
                     <div class="dropdown">
                            <button class="dropbtn">Dropdown</button>
                            <svg id="ic_expand_more" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" style={{ marginLeft: '3px' }}>
