@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Soundbites
+### A synthesizer building playground built on Tone.js.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Soundbites is the COMP 426 final project of Pranav Chintalapudi, Will Ritchie, and Sahith Desham. It's built so anyone can experience the fun of messing around with a synthesizer and creating awesome sounds, without a lick of musical or synth experience. It's still under active development -- pardon our dust!
 
-## Available Scripts
+## Getting Started
+Soundbites is simple to use. Click on any control on the Creator to start the synth up, and use the letter keys on your keyboard to play notes. Think of the keys as a piano keyboard, like this illustration:
+![computer piano keyboard](https://answers.presonus.com/?qa=blob&qa_blobid=4739542159000864423)
+If you're feeling adventurous (we hope you are!), play around with the sliders and knobs to get a feel for what they all do. If you'd like an explainer, one follows below.
 
-In the project directory, you can run:
+## How The Synth Works
+The core of Soundbites is our powerful synth engine. It's laid out in a chain: Oscillators create a tone, which passes through the amplitude envelope, then the filter envelope, then the effects, and finally out of your speakers. Each component modifies the sound in some way, and, other than the envelopes, each can be switched on and off at will. Brief explanations of the components follow:
 
-### `npm start`
+# Oscillator
+Oscillators are the parts of a synth that create sound. They generate a basic waveform -- in the case of Soundbites, a sine, sawtooth or square wave, each with their own sound -- which is then further modified by the **Pitch** and **Detune** controls. The Pitch knob adjusts the fundamental pitch of the oscillator in semitones, from -1 to +1 octave. The Detune slider then fine-tunes the pitch in a range of -0.1 to +0.1 semitones. The **Level** control modifies the volume of its corresponding oscillator. With three oscillators, plenty of interesting tones can be generated without using any effects at all.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Amplitude Envelope
+The amplitude envelope essentially controls the amplitude (or volume) of the synth's waveform over time. The **Attack** control dictates how long it takes the synth to reach its maximum volume after a key is pressed. The **Decay** control dictates how long it takes the volume to decrease to the level set by the **Sustain** control while the key is held. The **Release** control dictates how long it takes for the sound to fade to silence after the key is released. For example, a short, percussive pluck would have very short Attack, very short Decay, no Sustain, and very short Release. A long pad sound would have medium to long Attack, long Decay, medium to high Sustain, and long Release. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Filter Envelope
+The filter envelope controls both the frequency range of the synth's waveform and how that frequency range is applied over time. The **Cutoff** knob controls the cutoff frequency of the synth's low-pass filter -- essentially, the frequency above which the sound is muted. A deep bass synth might have quite a low cutoff, while a sharp lead synth might have a high cutoff. The **Warp** knob mangles the filter to various degrees (play around with it!). The **Attack, Decay, Sustain,** and **Release** controls all function the same as those in the amplitude envelope, except rather than controlling the volume of the waveform over time, they control the volume of the filter.
 
-### `npm test`
+# Reverb
+An effect that adds a long tail of reverberation to your sound. Think singing in a cathedral. The **Decay** knob controls the length of the reverb tail, the **Delay** knob adds up to 500ms of delay time to the start of the reverb tail, and the **Amount** knob controls how much reverb is mixed into your signal.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Distortion
+You already know what it is. The **Gain** knob controls the power of the distortion, and the **Amount** knob controls how much distortion is mixed into your signal.
 
-### `npm run build`
+# Delay
+Adds a string of repeating echoes to your sound. The **Time** knob controls the time between each repeat, the **Fdbk** knob controls the amount of repeats fed back into the delay (essentially increasing the number of repeats), and the **Amount** knob controls how much delay is mixed into your signal.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Chorus
+Adds a subtle watery, pulsing effect to your sound by detuning and delaying half the signal. The **Rate** knob controls the speed of the pulse, the **Delay** knob controls the amount of delay and the **Depth** knob controls the amount of detune.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Saving and Loading Patches
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Soundbites supports saving and loading patches with our Firebase Firestore-powered database. Click the **Save** button to save a patch or the **Load** button to load one of your saved patches. Alternatively, click the **Browse patches** button to open a browser containing all publicly saved patches created by Soundbites users.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Tools & Technologies
+Soundbites runs on
+- Tone.js
+- React.js
+- Firebase Authentication
+- Firebase Firestore
