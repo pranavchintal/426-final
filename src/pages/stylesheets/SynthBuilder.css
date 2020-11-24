@@ -36,21 +36,15 @@
     font-weight: 600;
     font-size: 20px;
     margin-left: 40px;
- }
-  
- .text-controls a:hover {
+    width: auto;
+}
+
+.text-controls a:hover {
     text-decoration: underline;
- }
-  
- .text-controls a:first-child {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    font-size: 20px;
-    margin-left: 40px;
- }
-  
+}
+
  .top-text-labels {
+
     display: inline-block;
     width: 100%;
     max-height: 30px;
@@ -62,8 +56,16 @@
     font-weight: 600;
     font-size: 26px;
     margin-left: 400px;
- }
- .browser-main {
+}
+
+.instructions {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+ 
+.browser-main {
     position:fixed;
     background: #5A189A;
     width: 80%;
