@@ -153,7 +153,7 @@ function App() {
         emailError={emailError}
         passwordError={passwordError}
         isSignedIn={user} />
-      <SynthBuilder handleLogout={handleLogout} isSignedIn={user} />
+      <SynthBuilder handleLogout={handleLogout} isSignedIn={user} email={email} />
     </div>
   );
 }
