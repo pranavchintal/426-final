@@ -23,9 +23,6 @@ export class SynthBuilder extends React.Component {
    
         };
 
-
-        };
-
         this.synth = new BigBoySynth(new BigBoyOptions({}));
 
         this.handleLogout = this.props.handleLogout;
@@ -150,7 +147,7 @@ export class SynthBuilder extends React.Component {
                 </div>
 
                 <div className="instructions">
-                    <p>Click on any control to start the synth engine. Use your keyboard to play notes!</p>
+                    <p>Click on any control to start the synth engine. Use your keyboard to play notes! If a note won't stop ringing, press the <span className="panic-text">panic button</span> at the bottom of the page.</p>
                 </div>
 
                 <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} patchName={this.state.patchName} patchDescription= {this.state.patchDescription} user={this.props.user}/>

@@ -91,7 +91,7 @@ export class TripleOsc extends React.Component {
                 </div>
                 <div className="osc-bank">
 
-                    <button onClick={this.panic}>Panic!</button>
+
                     <OscillatorTest synth={this.state.synth.voice1} oscNum="1" isMute={this.state.synth.isMute[0]} wholeSynth={this.state.synth}/>
                     <OscillatorTest synth={this.state.synth.voice2} oscNum="2" isMute={this.state.synth.isMute[1]} wholeSynth={this.state.synth}/>
                     <OscillatorTest synth={this.state.synth.voice3} oscNum="3" isMute={this.state.synth.isMute[2]} wholeSynth={this.state.synth}/>
@@ -128,6 +128,7 @@ export class TripleOsc extends React.Component {
                     <Verb synth={this.props.synth} parentState={this.state} />
 
                 </div>
+                <button onClick={this.panic} className="panic">PANIC</button>
             </div>
         )
     }

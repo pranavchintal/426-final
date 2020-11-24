@@ -1,7 +1,7 @@
 # Soundbites
 #### A synthesizer building playground built on Tone.js.
 
-Soundbites is the COMP 426 final project of Pranav Chintalapudi, Will Ritchie, and Sahith Desham. It's built so anyone can experience the fun of messing around with a synthesizer and creating awesome sounds, without a lick of musical or synth experience. It's still under active development -- pardon our dust!
+Soundbites is the COMP 426 final project of Pranav Chintalapudi, Will Ritchie, and Sahith Desham. It's built so anyone can experience the fun of messing around with a synthesizer and creating awesome sounds, without a lick of musical or synth experience. The app is still under active development -- pardon our dust!
 
 ## Getting Started
 Soundbites is simple to use. Click on any control on the Creator to start the synth up, and use the letter keys on your keyboard to play notes. Think of the keys as a piano keyboard, like this illustration:
@@ -33,10 +33,6 @@ Adds a string of repeating echoes to your sound. The **Time** knob controls the 
 
 ### Chorus
 Adds a subtle watery, pulsing effect to your sound by detuning and delaying half the signal. The **Rate** knob controls the speed of the pulse, the **Delay** knob controls the amount of delay and the **Depth** knob controls the amount of detune.
-
-## Saving and Loading Patches
-
-Soundbites supports saving and loading patches with our Firebase Firestore-powered database. Click the **Save** button to save a patch or the **Load** button to load one of your saved patches. Alternatively, click the **Browse patches** button to open a browser containing all publicly saved patches created by Soundbites users.
 
 ## Tools & Technologies
 Soundbites runs on

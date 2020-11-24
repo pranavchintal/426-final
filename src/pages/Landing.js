@@ -12,15 +12,15 @@ export class Landing extends React.Component {
         super(props);
         this.state = {
             show: false,
-            showLogin: this.props.isSignedIn
+            showLogin: true
         };
 
         fire.auth().onAuthStateChanged(() => {
             this.hideModal()
-            if (this.props.isSignedIn) {
-                this.setState({ showLogin: false })
+            if (!this.props.isSignedIn) {
+                this.state.showLogin = false;
             } else {
-                this.setState({ showLogin: true })
+                this.state.showLogin = true; 
             }
         });
     }
