@@ -21,6 +21,8 @@ export class TripleOsc extends React.Component {
         this.handleKeyRelease = this.handleKeyRelease.bind(this);
         this.state = {synth: this.props.synth};
 
+        this.panic = this.panic.bind(this);
+
     }
 
     handleKeyRelease(event) {
@@ -62,6 +64,10 @@ export class TripleOsc extends React.Component {
 
     }
 
+    panic() {
+        this.state.synth.panic();
+    }
+
     handleKeyPress(event) {
 
         if(event.key === '1') {
@@ -84,6 +90,7 @@ export class TripleOsc extends React.Component {
                     </span>
                 </div>
                 <div className="osc-bank">
+                    <button onClick={this.panic}>Panic!</button>
                     <OscillatorTest synth={this.state.synth.voice1} oscNum="1" isMute={this.state.synth.isMute[0]} wholeSynth={this.state.synth}/>
                     <OscillatorTest synth={this.state.synth.voice2} oscNum="2" isMute={this.state.synth.isMute[1]} wholeSynth={this.state.synth}/>
                     <OscillatorTest synth={this.state.synth.voice3} oscNum="3" isMute={this.state.synth.isMute[2]} wholeSynth={this.state.synth}/>
