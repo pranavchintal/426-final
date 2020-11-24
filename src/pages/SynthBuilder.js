@@ -15,8 +15,6 @@ export class SynthBuilder extends React.Component {
     constructor(props) {
 
         super(props);
-        console.log("email?");
-        console.log(this.props.email);
         this.state = { 
             show: false,
             showLogout: this.props.isSignedIn,
@@ -27,7 +25,7 @@ export class SynthBuilder extends React.Component {
 
 
         //this.state.synth = new BigBoySynth(JSON.parse('{"chorus":{"wet":0.5,"feedback":0,"frequency":1,"delayTime":0.005,"depth":0.7,"type":"sine","spread":180},"reverb":{"wet":1,"decay":1.5,"preDelay":0.01},"delay":{"wet":1,"feedback":0.13,"delayTime":0.25,"maxDelay":1},"distortion":{"wet":1,"distortion":0.4,"oversample":"none"},"chain":[],"voice1":{"volume":-16.999999999999996,"detune":-436,"portamento":0,"envelope":{"attack":0.005,"attackCurve":"linear","decay":0.1,"decayCurve":"exponential","release":1,"releaseCurve":"exponential","sustain":0.9},"filter":{"Q":2,"detune":0,"frequency":0,"gain":0,"rolloff":-48,"type":"lowpass"},"filterEnvelope":{"attack":0.6,"attackCurve":"linear","decay":0.2,"decayCurve":"exponential","release":2,"releaseCurve":"exponential","sustain":0.5,"baseFrequency":350,"exponent":2,"octaves":3},"oscillator":{"detune":-436,"frequency":440,"partialCount":32,"partials":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"phase":0,"type":"sine32"}},"voice2":{"volume":-17.999999999999996,"detune":500,"portamento":0,"envelope":{"attack":0.005,"attackCurve":"linear","decay":0.1,"decayCurve":"exponential","release":1,"releaseCurve":"exponential","sustain":0.9},"filter":{"Q":2,"detune":0,"frequency":0,"gain":0,"rolloff":-48,"type":"lowpass"},"filterEnvelope":{"attack":0.6,"attackCurve":"linear","decay":0.2,"decayCurve":"exponential","release":2,"releaseCurve":"exponential","sustain":0.5,"baseFrequency":350,"exponent":2,"octaves":3},"oscillator":{"detune":500,"frequency":440,"partialCount":32,"partials":[0.6366197723675814,-0.3183098861837907,0.2122065907891938,-0.15915494309189535,0.12732395447351627,-0.1061032953945969,0.09094568176679733,-0.07957747154594767,0.0707355302630646,-0.06366197723675814,0.057874524760689224,-0.05305164769729845,0.048970751720583176,-0.04547284088339867,0.04244131815783876,-0.039788735772973836,0.03744822190397537,-0.0353677651315323,0.033506303808820075,-0.03183098861837907,0.03031522725559911,-0.028937262380344612,0.027679120537720932,-0.026525823848649224,0.025464790894703253,-0.024485375860291588,0.0235785100876882,-0.022736420441699334,0.021952405943709702,-0.02122065907891938,0.02053612168927682,-0.019894367886486918],"phase":0,"type":"sawtooth32"}},"voice3":{"volume":-10,"detune":0,"portamento":0,"envelope":{"attack":0.005,"attackCurve":"linear","decay":0.1,"decayCurve":"exponential","release":1,"releaseCurve":"exponential","sustain":0.9},"filter":{"Q":2,"detune":0,"frequency":0,"gain":0,"rolloff":-48,"type":"lowpass"},"filterEnvelope":{"attack":0.6,"attackCurve":"linear","decay":0.2,"decayCurve":"exponential","release":2,"releaseCurve":"exponential","sustain":0.5,"baseFrequency":350,"exponent":2,"octaves":3},"oscillator":{"detune":0,"frequency":440,"partialCount":32,"partials":[0.6366197723675814,-0.3183098861837907,0.2122065907891938,-0.15915494309189535,0.12732395447351627,-0.1061032953945969,0.09094568176679733,-0.07957747154594767,0.0707355302630646,-0.06366197723675814,0.057874524760689224,-0.05305164769729845,0.048970751720583176,-0.04547284088339867,0.04244131815783876,-0.039788735772973836,0.03744822190397537,-0.0353677651315323,0.033506303808820075,-0.03183098861837907,0.03031522725559911,-0.028937262380344612,0.027679120537720932,-0.026525823848649224,0.025464790894703253,-0.024485375860291588,0.0235785100876882,-0.022736420441699334,0.021952405943709702,-0.02122065907891938,0.02053612168927682,-0.019894367886486918],"phase":0,"type":"sawtooth32"}},"isMute":[false,false,true],"pitch":[-4,5,0],"detuneVal":[-36,0,0]}'));
-        this.state.synth = new BigBoySynth(new BigBoyOptions({}));
+        //this.state.synth = new BigBoySynth(new BigBoyOptions({}));
         // this.state.synth.voice1.set({oscillator: {
         //     type: "square32"
         // }});
@@ -114,6 +112,15 @@ export class SynthBuilder extends React.Component {
     };
 
     render() {
+
+        const setname=(temp)=>{
+            this.setState({ patchName: temp });
+        }
+        const setdescription=(temp)=>{
+            this.setState({ patchDescription: temp });
+        }
+ 
+
         return (
             <div id="creator-container">
                 <h1 className="creator-title">
@@ -136,16 +143,30 @@ export class SynthBuilder extends React.Component {
                     <a onClick={this.showBrowser}>
                         BROWSE PATCHES
                     </a>
-                    <a href="#creator-container">
+                    {/* <a href="#creator-container">
                         <a onClick={this.savePatch}>
                         SAVE
                     </a>
-                    </a>
+                    </a> */}
+                    <div class="dropdown">
+                           <button class="dropbtn">Dropdown</button>
+                           <svg id="ic_expand_more" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" style={{ marginLeft: '3px' }}>
+                           <rect id="rectangle" width="24" height="24" fill="none" />
+                           <path id="path" d="M16.6,8.6,12,13.2,7.4,8.6,6,10l6,6,6-6Z" fill="#fff" fillRule="evenodd" />
+                       </svg>
+                           <div class="dropdown-content">
+                           <input type="text" placeholder="name of patch"
+                            onChange={(e) => setname(e.target.value)}/>
+                           <input type ="text" placeholder="describe the patch"
+                               onChange={(e) => setdescription(e.target.value)}/>                          
+                           </div>
+                    </div>
+
                     <a href="#creator-container" className={this.state.showLogout ? "display-initial" : "display-none"} onClick={this.handleLogout}>
                         LOGOUT
                     </a>
                 </div>
-                <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} />
+                <PatchBrowser handleClose={this.hideBrowser} show={this.state.show} patchName={this.state.patchName} patchDescription= {this.state.patchDescription} user={this.props.user}/>
                 <TripleOsc synth={this.state.synth}/>
             </div>
         )

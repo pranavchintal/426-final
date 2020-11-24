@@ -2,9 +2,11 @@ import React from 'react';
 import closeIcon from './icons/noun_Close_3610311.png'
 import SimpleBar from 'simplebar-react';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles';
 
+import fire from "../fire.js";
 import 'simplebar/dist/simplebar.min.css';
+
 
 const CssTextField = withStyles({
     root: {
@@ -30,11 +32,33 @@ const CssTextField = withStyles({
 
 export class PatchBrowser extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             search: null
         }
+
+        this.user = this.props.user;
+
+
+
+
+        // docRef.get().then(function(doc) {
+        //     if (doc.exists) {
+        //         console.log("Document data:", doc.data().testName);
+        //     } else {
+        //         // doc.data() will be undefined in this case
+        //         console.log("No such document!");
+        //     }
+        // }).catch(function(error) {
+        //     console.log("Error getting document:", error);
+        // });
+        // let otherRef = await docRef.get();
+
+        // let final = JSON.parse(otherRef.data().testName);
+
+        // //this.state.synth = new BigBoySynth(final);
+        // this.setState({synth: new BigBoySynth(final)});
 
     }
 
@@ -123,6 +147,23 @@ export class PatchBrowser extends React.Component {
             },
 
         ];
+
+        if(this.props.patchName!=='')
+        {
+            dataArr.push({
+                user: "pranavchintal",
+                patchName: this.props.patchName,
+                desc: this.props.patchDescription
+            })
+            var docRef = fire.firestore().collection("patch").doc(this.user.uid);
+            docRef.get().then(docSnapshot => {
+                docRef.set({
+                    check : "hello"
+                  })
+              })
+        }
+ 
+
 
         const items = dataArr.filter((data) => {
             if (this.state.search == null)
