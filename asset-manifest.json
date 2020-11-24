@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/soundbites/static/css/main.9989355f.chunk.css",
-    "main.js": "/soundbites/static/js/main.bc580306.chunk.js",
-    "main.js.map": "/soundbites/static/js/main.bc580306.chunk.js.map",
+    "main.css": "/soundbites/static/css/main.de480a65.chunk.css",
+    "main.js": "/soundbites/static/js/main.73207e16.chunk.js",
+    "main.js.map": "/soundbites/static/js/main.73207e16.chunk.js.map",
     "runtime-main.js": "/soundbites/static/js/runtime-main.530069b2.js",
     "runtime-main.js.map": "/soundbites/static/js/runtime-main.530069b2.js.map",
     "static/css/2.a2825889.chunk.css": "/soundbites/static/css/2.a2825889.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.bf55cfe2.chunk.js.map": "/soundbites/static/js/3.bf55cfe2.chunk.js.map",
     "index.html": "/soundbites/index.html",
     "static/css/2.a2825889.chunk.css.map": "/soundbites/static/css/2.a2825889.chunk.css.map",
-    "static/css/main.9989355f.chunk.css.map": "/soundbites/static/css/main.9989355f.chunk.css.map",
+    "static/css/main.de480a65.chunk.css.map": "/soundbites/static/css/main.de480a65.chunk.css.map",
     "static/js/2.6d92cf9d.chunk.js.LICENSE.txt": "/soundbites/static/js/2.6d92cf9d.chunk.js.LICENSE.txt",
     "static/media/arrow.95b4cfc8.svg": "/soundbites/static/media/arrow.95b4cfc8.svg",
     "static/media/Landing.css": "/soundbites/static/media/landing_background.34690622.svg",
@@ -26,7 +26,7 @@
     "static/js/runtime-main.530069b2.js",
     "static/css/2.a2825889.chunk.css",
     "static/js/2.6d92cf9d.chunk.js",
-    "static/css/main.9989355f.chunk.css",
-    "static/js/main.bc580306.chunk.js"
+    "static/css/main.de480a65.chunk.css",
+    "static/js/main.73207e16.chunk.js"
   ]
 }
