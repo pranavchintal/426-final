@@ -5,7 +5,9 @@ Soundbites is the COMP 426 final project of Pranav Chintalapudi, Will Ritchie, a
 
 ## Getting Started
 Soundbites is simple to use. Click on any control on the Creator to start the synth up, and use the letter keys on your keyboard to play notes. Think of the keys as a piano keyboard, like this illustration:
+
 ![computer piano keyboard](https://answers.presonus.com/?qa=blob&qa_blobid=4739542159000864423)
+
 If you're feeling adventurous (we hope you are!), play around with the sliders and knobs to get a feel for what they all do. If you'd like an explainer, one follows below.
 
 ## How The Synth Works
